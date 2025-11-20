@@ -8,7 +8,6 @@ interface AuthContextType {
   addPoints: (amount: number) => void;
   updateLastViewedSection: (sectionId: string) => void;
   resetProgress: () => void;
-  // FIX: Add login and signup to the context type to resolve errors in LoginPage.tsx.
   login: (email: string, pass: string) => Promise<void>;
   signup: (email: string, pass: string) => Promise<void>;
 }
@@ -97,27 +96,35 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
     }, []);
 
-    const resetProgress = useCallback(async () => {
+    const resetProgress = useCallback(() => {
         setUser(prevUser => {
             if (!prevUser) return null;
-            const resetUser = { 
-                ...prevUser, 
+            
+            // Create a clean user object preserving identity but resetting progress
+            const resetUser: User = { 
+                ...defaultUser,
+                email: prevUser.email,
+                name: prevUser.name,
+                picture: prevUser.picture,
                 points: 0,
                 progress: { completedSections: [], completedInteractives: [] },
                 lastViewedSection: 'overview'
             };
+            
+            // Sync to storage immediately
             localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(resetUser));
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            // We return a new object to ensure React state updates correctly
-            return {...resetUser};
+            
+            return resetUser;
         });
+
+        // Perform scroll side-effect outside the state updater
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 50);
     }, []);
 
-
-    // FIX: Implement mock login and signup functions to resolve errors in the unused LoginPage component.
     const login = useCallback(async (email: string, _pass: string) => {
-        // Mock login. In a real app, you'd call an API.
-        // We'll just create a user object and save it.
+        // Mock login.
         const name = email.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
         const loggedInUser: User = {
             ...defaultUser,
@@ -130,7 +137,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }, []);
 
     const signup = useCallback(async (email: string, pass: string) => {
-        // Mock signup is same as login for this app.
         await login(email, pass);
     }, [login]);
 
