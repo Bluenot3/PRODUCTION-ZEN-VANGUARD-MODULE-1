@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { MagnifyingGlassIcon } from './icons/MagnifyingGlassIcon';
@@ -27,6 +28,10 @@ const Header: React.FC<HeaderProps> = ({ completedSections, totalSections, onCom
     const { user, resetProgress } = useAuth();
     const [pointAnims, setPointAnims] = useState<{ id: number; amount: number }[]>([]);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const [xpAnimating, setXpAnimating] = useState(false);
+    const [labsAnimating, setLabsAnimating] = useState(false);
+    const [resetConfirming, setResetConfirming] = useState(false);
+    const prevCompletedSections = useRef(completedSections);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const getInitials = (name: string) => {
@@ -42,10 +47,20 @@ const Header: React.FC<HeaderProps> = ({ completedSections, totalSections, onCom
         const handlePointsAdded = (e: Event) => {
             const { amount } = (e as CustomEvent).detail;
             setPointAnims(prev => [...prev, { id: Date.now(), amount }]);
+            setXpAnimating(true);
+            setTimeout(() => setXpAnimating(false), 1200); // Sync with animation duration
         };
         document.addEventListener('pointsAdded', handlePointsAdded);
         return () => document.removeEventListener('pointsAdded', handlePointsAdded);
     }, []);
+
+    useEffect(() => {
+        if (completedSections > prevCompletedSections.current) {
+            setLabsAnimating(true);
+            setTimeout(() => setLabsAnimating(false), 2000);
+        }
+        prevCompletedSections.current = completedSections;
+    }, [completedSections]);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -68,15 +83,24 @@ const Header: React.FC<HeaderProps> = ({ completedSections, totalSections, onCom
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    useEffect(() => {
+        if (!isProfileOpen) {
+            setResetConfirming(false);
+        }
+    }, [isProfileOpen]);
+
     const handleReset = () => {
-        if (window.confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
-             resetProgress();
-             setIsProfileOpen(false);
+        if (resetConfirming) {
+            resetProgress();
+            setIsProfileOpen(false);
+            setResetConfirming(false);
+        } else {
+            setResetConfirming(true);
         }
     };
 
     return (
-        <header className="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-xl border-b border-slate-200 h-20">
+        <header className="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-xl border-b border-white/40 h-20 shadow-sm">
             <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
                 <div className="flex items-center justify-between h-full gap-4">
                     
@@ -107,7 +131,7 @@ const Header: React.FC<HeaderProps> = ({ completedSections, totalSections, onCom
                                 type="text"
                                 readOnly
                                 placeholder="Ask Gemma 3..."
-                                className="block w-full pl-11 pr-12 py-2.5 border border-slate-200 rounded-full leading-5 bg-slate-50 text-slate-600 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all shadow-sm hover:bg-white hover:shadow-md cursor-pointer text-sm"
+                                className="block w-full pl-11 pr-12 py-2.5 border border-slate-200 rounded-full leading-5 bg-slate-50/50 text-slate-600 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all shadow-sm hover:bg-white hover:shadow-md cursor-pointer text-sm backdrop-blur-sm"
                             />
                             <div className="absolute inset-y-0 right-0 pr-2 flex items-center pointer-events-none">
                                 <span className="text-slate-400 border border-slate-200 rounded px-2 py-0.5 text-xs font-sans bg-white shadow-sm mr-1">/</span>
@@ -119,14 +143,18 @@ const Header: React.FC<HeaderProps> = ({ completedSections, totalSections, onCom
                     <div className="flex items-center gap-3 sm:gap-6 min-w-fit">
                          {user && (
                             <>
-                                {/* XP Pill */}
-                                <div className="hidden sm:flex items-center gap-3 bg-white border border-slate-100 rounded-full pl-1.5 pr-5 py-1.5 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5 cursor-default group">
-                                    <div className="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100 group-hover:border-brand-secondary/50 transition-colors">
-                                         <GraduationCapIcon className="w-5 h-5 text-slate-600 group-hover:text-brand-primary transition-colors" />
+                                {/* XP Pill - with shimmer and intricate icon */}
+                                <div className={`hidden sm:flex items-center gap-3 bg-white border border-slate-100 rounded-full pl-1.5 pr-5 py-1.5 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 cursor-default group relative overflow-hidden ${xpAnimating ? 'border-brand-primary/30 ring-2 ring-brand-primary/20' : ''}`}>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent translate-x-[-100%] group-hover:animate-shimmer pointer-events-none"></div>
+                                    <div className={`w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100 transition-colors relative z-10 ${xpAnimating ? 'border-brand-primary/50 bg-brand-primary/5' : 'group-hover:border-brand-secondary/50'}`}>
+                                         <GraduationCapIcon 
+                                            className={`w-5 h-5 transition-colors ${xpAnimating ? 'text-brand-primary' : 'text-slate-600 group-hover:text-brand-primary'}`} 
+                                            isAnimating={xpAnimating}
+                                         />
                                     </div>
-                                    <div className="relative flex flex-col leading-none">
+                                    <div className="relative flex flex-col leading-none z-10">
                                         <span className="text-[9px] font-bold text-slate-400 tracking-wider uppercase mb-0.5">XP</span>
-                                        <span className="text-sm font-bold text-slate-800 tabular-nums">{user.points}</span>
+                                        <span className={`text-sm font-bold tabular-nums transition-colors duration-300 ${xpAnimating ? 'text-brand-primary scale-110' : 'text-slate-800'}`}>{user.points}</span>
                                          {pointAnims.map(anim => (
                                             <span 
                                                 key={anim.id}
@@ -139,12 +167,16 @@ const Header: React.FC<HeaderProps> = ({ completedSections, totalSections, onCom
                                     </div>
                                 </div>
 
-                                {/* Labs Pill */}
-                                <div className="hidden sm:flex items-center gap-3 bg-white border border-slate-100 rounded-full pl-1.5 pr-5 py-1.5 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5 cursor-default group">
-                                    <div className="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100 group-hover:border-orange-200 transition-colors">
-                                        <LabsIcon className="w-5 h-5 text-slate-600 group-hover:text-orange-500 transition-colors" />
+                                {/* Labs Pill - with shimmer and intricate icon */}
+                                <div className={`hidden sm:flex items-center gap-3 bg-white border border-slate-100 rounded-full pl-1.5 pr-5 py-1.5 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 cursor-default group relative overflow-hidden ${labsAnimating ? 'border-orange-300/50 ring-2 ring-orange-200' : ''}`}>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent translate-x-[-100%] group-hover:animate-shimmer pointer-events-none"></div>
+                                    <div className={`w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100 transition-colors relative z-10 ${labsAnimating ? 'border-orange-300 bg-orange-50' : 'group-hover:border-orange-200'}`}>
+                                        <LabsIcon 
+                                            className={`w-5 h-5 transition-colors ${labsAnimating ? 'text-orange-500' : 'text-slate-600 group-hover:text-orange-500'}`} 
+                                            isAnimating={labsAnimating}
+                                        />
                                     </div>
-                                    <div className="flex flex-col leading-none">
+                                    <div className="flex flex-col leading-none z-10">
                                         <span className="text-[9px] font-bold text-slate-400 tracking-wider uppercase mb-0.5">LABS</span>
                                         <span className="text-sm font-bold text-slate-800 tabular-nums">
                                             {completedSections} <span className="text-slate-300 font-normal text-xs">/ {totalSections}</span>
@@ -169,7 +201,7 @@ const Header: React.FC<HeaderProps> = ({ completedSections, totalSections, onCom
 
                                     {/* Dropdown */}
                                     {isProfileOpen && (
-                                        <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-1 animate-fade-in overflow-hidden z-50 origin-top-right">
+                                        <div className="absolute right-0 mt-2 w-56 bg-white/90 backdrop-blur-xl rounded-xl shadow-xl border border-slate-100 py-1 animate-fade-in overflow-hidden z-50 origin-top-right">
                                             <div className="px-4 py-3 border-b border-slate-50 bg-slate-50/50">
                                                 <p className="text-sm font-bold text-slate-800 truncate">{user.name}</p>
                                                 <p className="text-xs text-slate-500 truncate">{user.email}</p>
@@ -177,10 +209,14 @@ const Header: React.FC<HeaderProps> = ({ completedSections, totalSections, onCom
                                             <div className="py-1">
                                                 <button 
                                                     onClick={handleReset}
-                                                    className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2 hover:underline"
+                                                    className={`w-full text-left px-4 py-2 text-sm transition-all flex items-center gap-2 ${
+                                                        resetConfirming 
+                                                            ? 'bg-red-600 text-white font-bold hover:bg-red-700' 
+                                                            : 'text-red-600 hover:bg-red-50 hover:underline'
+                                                    }`}
                                                 >
-                                                    <RefreshIcon className="w-4 h-4" />
-                                                    Reset Progress
+                                                    <RefreshIcon className={`w-4 h-4 ${resetConfirming ? 'text-white' : ''}`} />
+                                                    {resetConfirming ? 'Reset?' : 'Reset Progress'}
                                                 </button>
                                             </div>
                                         </div>

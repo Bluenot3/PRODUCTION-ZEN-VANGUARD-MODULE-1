@@ -1,47 +1,57 @@
+
 import React, { useState } from 'react';
 import type { InteractiveComponentProps } from '../../types';
 import { useAuth } from '../../hooks/useAuth';
 import { getAiClient } from '../../services/aiService';
-import { WandIcon } from '../icons/WandIcon';
-// FIX: Add import for AiOutputBlock
-import AiOutputBlock from '../AiOutputBlock';
+import { SparklesIcon } from '../icons/SparklesIcon';
+import { Type } from '@google/genai';
 
 const PromptMutationStudio: React.FC<InteractiveComponentProps> = ({ interactiveId }) => {
     const { user, addPoints, updateProgress } = useAuth();
-    const [basePrompt, setBasePrompt] = useState('a cat wearing a wizard hat');
-    const [mutations, setMutations] = useState<string[]>([]);
+    const [seed, setSeed] = useState('A bicycle');
+    const [mutations, setMutations] = useState<{title: string, desc: string}[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
     const hasCompleted = user?.progress.completedInteractives.includes(interactiveId);
 
-    const handleGenerate = async () => {
-        if (!basePrompt.trim()) {
-            setError('Please enter a base prompt.');
+    const handleEvolve = async () => {
+        if (!seed.trim()) {
+            setError('Plant a seed idea first.');
             return;
         }
         setLoading(true);
         setError('');
         setMutations([]);
 
-        const prompt = `You are a creative prompt engineer for an AI image generator. Take the user's simple idea and generate 5 diverse and creative variations. Each variation should be more detailed, exploring different styles, moods, and compositions. Return the result as a JSON array of strings.
+        const prompt = `You are a creative evolution engine. Take the user's simple seed idea and evolve it into 3 distinct, complex, and creative variations.
+        For each variation, provide a short "title" and a 1-sentence "desc" (description).
         
-User Idea: "${basePrompt}"`;
+        Seed: "${seed}"`;
 
         try {
             const ai = await getAiClient();
             const response = await ai.models.generateContent({
                 model: 'gemini-2.5-flash',
                 contents: prompt,
-                config: { responseMimeType: "application/json" }
+                config: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: Type.ARRAY,
+                        items: {
+                            type: Type.OBJECT,
+                            properties: {
+                                title: { type: Type.STRING },
+                                desc: { type: Type.STRING }
+                            },
+                            required: ['title', 'desc']
+                        }
+                    }
+                }
             });
             
-            const resultText = response.text.trim();
-            // Clean the response from markdown and parse
-            const jsonString = resultText.replace(/^```json\s*|```\s*$/g, '');
-            const parsedMutations = JSON.parse(jsonString);
-
-            setMutations(parsedMutations);
+            const data = JSON.parse(response.text);
+            setMutations(data);
 
             if (!hasCompleted) {
                 addPoints(25);
@@ -49,45 +59,58 @@ User Idea: "${basePrompt}"`;
             }
         } catch (e) {
             console.error(e);
-            setError('Failed to generate mutations. The AI may have returned an invalid format. Please try again.');
+            setError('Evolution failed. Try a different seed.');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="my-8 p-6 bg-brand-bg rounded-2xl shadow-neumorphic-out">
-            <h4 className="font-bold text-lg text-brand-text mb-2 text-center">Prompt Mutation Studio</h4>
-            <p className="text-center text-brand-text-light mb-4 text-sm">Enter a simple idea, and Gemini will evolve it into several creative, detailed prompts.</p>
+        <div className="my-8 p-6 bg-brand-bg rounded-2xl shadow-neumorphic-out relative overflow-hidden">
+            {/* Background Tree Decoration */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-full bg-gradient-to-b from-transparent via-brand-primary/20 to-transparent -z-10"></div>
+
+            <h4 className="font-bold text-lg text-brand-text mb-2 text-center">Idea Evolution Lab</h4>
+            <p className="text-center text-brand-text-light mb-8 text-sm">Plant a simple seed. Watch it grow into a forest of ideas.</p>
             
-            <div className="flex flex-col sm:flex-row items-center gap-2">
-                <input
-                    type="text"
-                    value={basePrompt}
-                    onChange={e => setBasePrompt(e.target.value)}
-                    placeholder="Enter your simple idea..."
-                    className="flex-grow w-full px-4 py-3 bg-brand-bg rounded-full focus:outline-none focus:ring-2 focus:ring-brand-primary text-brand-text shadow-neumorphic-in"
-                />
-                <button onClick={handleGenerate} disabled={loading} className="w-full sm:w-auto flex-shrink-0 inline-flex items-center justify-center gap-2 bg-brand-primary text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-neumorphic-out hover:shadow-neumorphic-in transform hover:scale-95 disabled:opacity-50">
-                    <WandIcon />
-                    {loading ? 'Mutating...' : 'Mutate'}
-                </button>
+            {/* Seed Input */}
+            <div className="max-w-md mx-auto relative z-10">
+                <div className="flex gap-2">
+                    <input
+                        type="text"
+                        value={seed}
+                        onChange={e => setSeed(e.target.value)}
+                        placeholder="e.g. A coffee cup"
+                        className="flex-grow px-4 py-3 bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-brand-primary text-brand-text shadow-md text-center"
+                    />
+                    <button 
+                        onClick={handleEvolve} 
+                        disabled={loading} 
+                        className="bg-brand-primary text-white p-3 rounded-full shadow-lg hover:scale-105 transition-transform disabled:opacity-50 disabled:scale-100"
+                    >
+                        <SparklesIcon />
+                    </button>
+                </div>
             </div>
             
-            {error && <p className="text-center text-red-500 mt-4">{error}</p>}
+            {error && <p className="text-center text-red-500 mt-4 bg-white/50 inline-block px-4 py-1 rounded-full mx-auto">{error}</p>}
             
-            <div className="mt-6 space-y-3">
+            {/* Branches */}
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10 min-h-[200px]">
                 {loading && (
-                    Array.from({ length: 5 }).map((_, i) => (
-                       <AiOutputBlock key={i} isLoading={true} title={`Mutation ${i + 1}`} />
-                    ))
+                    <>
+                        <div className="animate-pulse bg-white/50 h-32 rounded-xl shadow-sm"></div>
+                        <div className="animate-pulse bg-white/50 h-32 rounded-xl shadow-sm delay-100"></div>
+                        <div className="animate-pulse bg-white/50 h-32 rounded-xl shadow-sm delay-200"></div>
+                    </>
                 )}
-                {mutations.map((mutation, index) => (
-                    <AiOutputBlock 
-                        key={index}
-                        content={mutation}
-                        title={`Mutation ${index + 1}`}
-                    />
+                
+                {mutations.map((m, i) => (
+                    <div key={i} className="bg-white p-5 rounded-xl shadow-neumorphic-in border-t-4 border-brand-primary animate-slide-in-up" style={{animationDelay: `${i * 150}ms`}}>
+                        <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-0.5 h-6 bg-brand-primary/30"></div>
+                        <h5 className="font-bold text-brand-primary mb-2 text-lg">{m.title}</h5>
+                        <p className="text-sm text-brand-text-light leading-relaxed">{m.desc}</p>
+                    </div>
                 ))}
             </div>
         </div>

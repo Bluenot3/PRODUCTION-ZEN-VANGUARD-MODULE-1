@@ -1,3 +1,4 @@
+
 export interface AiModel {
   model: string;
   provider: string;
@@ -21,7 +22,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 1.25,
     outputPrice: '$10.00',
     outputPriceSort: 10,
-    details: 'Released Sep 2025. Specialized version of GPT-5, tailored for software engineering and complex agentic coding workflows. "High" variant likely refers to a specific fine-tuning or reasoning depth.',
+    details: 'Released Sep 2025. Specialized version of GPT-5, tailored for software engineering and complex agentic coding workflows. "High" variant likely refers to a specific fine-tuning or reasoning depth.\n\n**Beginner Tip:** Use this if you are building complex software or need the AI to write and fix extensive code.',
     isOpenSource: false,
   },
   {
@@ -33,7 +34,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 1.25,
     outputPrice: '$10.00',
     outputPriceSort: 10,
-    details: 'OpenAI\'s flagship model (released Aug 2025) optimized for agentic tasks. The "high" / "medium" / "low" tiers likely refer to different reasoning/agentic settings.',
+    details: 'OpenAI\'s flagship model (released Aug 2025) optimized for agentic tasks. The "high" / "medium" / "low" tiers likely refer to different reasoning/agentic settings.\n\n**Beginner Tip:** The "smartest" general option available. Great for complex logic, but overkill for simple emails.',
     isOpenSource: false,
   },
   {
@@ -45,7 +46,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 1.25,
     outputPrice: '$10.00',
     outputPriceSort: 10,
-    details: 'Mid-tier reasoning setting for the standard GPT-5 model.',
+    details: 'Mid-tier reasoning setting for the standard GPT-5 model.\n\n**Beginner Tip:** A balanced choice for difficult tasks that don\'t require maximum brainpower.',
     isOpenSource: false,
   },
   {
@@ -57,7 +58,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.002,
     outputPrice: '~_`$0.008`_`',
     outputPriceSort: 0.008,
-    details: 'An "o-series" model from OpenAI, possibly an experimental or specialized variant released before GPT-5.',
+    details: 'An "o-series" model from OpenAI, possibly an experimental or specialized variant released before GPT-5.\n\n**Beginner Tip:** Good for testing new reasoning capabilities at a lower cost.',
     isOpenSource: false,
   },
   {
@@ -69,7 +70,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 3,
     outputPrice: '$15.00',
     outputPriceSort: 15,
-    details: 'Released July 2025. xAI\'s top-tier model with native tool use and real-time search integration from the X platform.',
+    details: 'Released July 2025. xAI\'s top-tier model with native tool use and real-time search integration from the X platform.\n\n**Beginner Tip:** Excellent if you need real-time news or social sentiment analysis.',
     isOpenSource: false,
   },
   {
@@ -81,7 +82,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.25,
     outputPrice: '$2.00',
     outputPriceSort: 2,
-    details: 'Faster, economical version of GPT-5. "High" setting likely provides more thorough responses than the medium/minimal tiers.',
+    details: 'Faster, economical version of GPT-5. "High" setting likely provides more thorough responses than the medium/minimal tiers.\n\n**Beginner Tip:** A fast, smart, and cheaper alternative to the full GPT-5. Great for daily tasks.',
     isOpenSource: false,
   },
   {
@@ -93,7 +94,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 3,
     outputPrice: '$15.00 (≤200k)\n$22.50 (>200k)',
     outputPriceSort: 15,
-    details: 'Released Sep 2025. Anthropic\'s flagship, optimized for agentic coding and complex workflows with tiered pricing based on context length.',
+    details: 'Released Sep 2025. Anthropic\'s flagship, optimized for agentic coding and complex workflows with tiered pricing based on context length.\n\n**Beginner Tip:** Known for writing very natural, human-like text and handling large documents.',
     isOpenSource: false,
   },
   {
@@ -105,7 +106,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 1.25,
     outputPrice: '$10.00',
     outputPriceSort: 10,
-    details: '"Low" reasoning setting for the standard GPT-5 model, likely faster with less depth.',
+    details: '"Low" reasoning setting for the standard GPT-5 model, likely faster with less depth.\n\n**Beginner Tip:** Use when speed is more important than deep analysis.',
     isOpenSource: false,
   },
   {
@@ -117,7 +118,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.3,
     outputPrice: '$1.20',
     outputPriceSort: 1.2,
-    details: 'A highly capable Chinese model released in late Oct 2025, noted for strong SVG generation and being price-competitive with Gemini 2.5 Flash.',
+    details: 'A highly capable Chinese model released in late Oct 2025, noted for strong SVG generation and being price-competitive with Gemini 2.5 Flash.\n\n**Beginner Tip:** A strong contender for creative tasks and visual coding.',
     isOpenSource: false,
   },
   {
@@ -129,7 +130,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.25,
     outputPrice: '$2.00',
     outputPriceSort: 2,
-    details: 'Standard/medium setting for the GPT-5 mini model.',
+    details: 'Standard/medium setting for the GPT-5 mini model.\n\n**Beginner Tip:** Reliable for most standard chatbot interactions.',
     isOpenSource: false,
   },
   {
@@ -141,7 +142,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.05,
     outputPrice: '~$0.25',
     outputPriceSort: 0.25,
-    details: 'Open-weight 117B MoE model from OpenAI (5.1B active). "gpt-oss" models are designed for on-premise use and research. Pricing is from hosting providers.',
+    details: 'Open-weight 117B MoE model from OpenAI (5.1B active). "gpt-oss" models are designed for on-premise use and research. Pricing is from hosting providers.\n\n**Beginner Tip:** Advanced users run this on their own servers for privacy.',
     isOpenSource: true,
   },
   {
@@ -153,7 +154,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.2,
     outputPrice: '$0.50',
     outputPriceSort: 0.5,
-    details: 'Released Sep 2025. A cost-efficient, 2M token context model for faster, less complex tasks than Grok 4.',
+    details: 'Released Sep 2025. A cost-efficient, 2M token context model for faster, less complex tasks than Grok 4.\n\n**Beginner Tip:** Perfect for analyzing massive amounts of text quickly.',
     isOpenSource: false,
   },
   {
@@ -165,7 +166,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 1.25,
     outputPrice: '$10.00 (≤200k)\n$15.00 (>200k)',
     outputPriceSort: 10,
-    details: 'Released June 2025. Google\'s flagship fully multimodal model (Text, Code, Image, Audio, Video). Tiered pricing based on context.',
+    details: 'Released June 2025. Google\'s flagship fully multimodal model (Text, Code, Image, Audio, Video). Tiered pricing based on context.\n\n**Beginner Tip:** The "Jack of all trades." Can see, hear, speak, and code proficiently.',
     isOpenSource: false,
   },
   {
@@ -177,7 +178,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 15,
     outputPrice: '$75.00',
     outputPriceSort: 75,
-    details: 'Anthropic\'s previous top-tier model from 2024. Price may reflect discounts as it\'s an older model.',
+    details: 'Anthropic\'s previous top-tier model from 2024. Price may reflect discounts as it\'s an older model.\n\n**Beginner Tip:** An older, very smart model, but expensive compared to newer options.',
     isOpenSource: false,
   },
   {
@@ -189,7 +190,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.27,
     outputPrice: '~$1.00 - $1.91',
     outputPriceSort: 1,
-    details: 'Released Aug/Sep 2025. An agent-oriented model with a hybrid "Thinking Mode" for complex reasoning.',
+    details: 'Released Aug/Sep 2025. An agent-oriented model with a hybrid "Thinking Mode" for complex reasoning.\n\n**Beginner Tip:** Excellent for problems that require "thinking" step-by-step.',
     isOpenSource: false,
   },
   {
@@ -201,7 +202,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.09,
     outputPrice: '~$0.60 - $2.63',
     outputPriceSort: 0.6,
-    details: 'Released July 2025. A 235B MoE model (22B active) with strong multilingual, math, and coding skills. Pricing varies heavily by provider.',
+    details: 'Released July 2025. A 235B MoE model (22B active) with strong multilingual, math, and coding skills. Pricing varies heavily by provider.\n\n**Beginner Tip:** A powerful option for multilingual tasks, especially Asian languages.',
     isOpenSource: false,
   },
   {
@@ -213,7 +214,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.3,
     outputPrice: '~$0.50',
     outputPriceSort: 0.5,
-    details: 'A lightweight, long-context model from xAI optimized for "thinking" or reasoning tasks. Price is estimated based on Grok-3-mini.',
+    details: 'A lightweight, long-context model from xAI optimized for "thinking" or reasoning tasks. Price is estimated based on Grok-3-mini.\n\n**Beginner Tip:** Good for logic puzzles or data extraction on a budget.',
     isOpenSource: false,
   },
   {
@@ -225,7 +226,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'An experimental (Exp) version of the DeepSeek V3 series.',
+    details: 'An experimental (Exp) version of the DeepSeek V3 series.\n\n**Beginner Tip:** Cutting edge but might be unstable. For testing only.',
     isOpenSource: false,
   },
   {
@@ -237,7 +238,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A 2025 iteration of Zhipu AI\'s primary model series, likely a successor to GLM-4.',
+    details: 'A 2025 iteration of Zhipu AI\'s primary model series, likely a successor to GLM-4.\n\n**Beginner Tip:** A strong general-purpose model popular in research.',
     isOpenSource: false,
   },
   {
@@ -249,7 +250,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 1.2,
     outputPrice: '$6.00 (≤32k)\n$15.00 (>128k)',
     outputPriceSort: 6,
-    details: 'Alibaba\'s flagship Qwen3 model, with tiered pricing based on context length.',
+    details: 'Alibaba\'s flagship Qwen3 model, with tiered pricing based on context length.\n\n**Beginner Tip:** Top-tier performance for coding and math.',
     isOpenSource: false,
   },
   {
@@ -261,7 +262,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Not Public',
     outputPriceSort: Infinity,
-    details: 'A new Haiku model in the 4.5 series. The $2.00 price seems anomalous, as official 3.5 Haiku pricing is much lower ($0.25/$1.25). This may be a specific provider\'s rate.',
+    details: 'A new Haiku model in the 4.5 series. The $2.00 price seems anomalous, as official 3.5 Haiku pricing is much lower ($0.25/$1.25). This may be a specific provider\'s rate.\n\n**Beginner Tip:** Extremely fast and concise. Great for quick chat replies.',
     isOpenSource: false,
   },
   {
@@ -273,7 +274,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.15,
     outputPrice: '$1.25 (Text/Audio)',
     outputPriceSort: 1.25,
-    details: 'Google\'s high-speed, low-cost multimodal model. The "(Sep)" likely refers to a specific 2025 update.',
+    details: 'Google\'s high-speed, low-cost multimodal model. The "(Sep)" likely refers to a specific 2025 update.\n\n**Beginner Tip:** The best all-rounder for speed and price. Start here.',
     isOpenSource: false,
   },
   {
@@ -285,7 +286,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'The Vision-Language (VL) multimodal version of the powerful 235B MoE model.',
+    details: 'The Vision-Language (VL) multimodal version of the powerful 235B MoE model.\n\n**Beginner Tip:** Use this if you need to analyze images with high precision.',
     isOpenSource: false,
   },
   {
@@ -297,7 +298,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A specific MoE configuration (80B total, 3B active) in the Qwen3 series.',
+    details: 'A specific MoE configuration (80B total, 3B active) in the Qwen3 series.\n\n**Beginner Tip:** A balanced model for tasks requiring both speed and smarts.',
     isOpenSource: false,
   },
   {
@@ -309,7 +310,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.04,
     outputPrice: '~$0.40',
     outputPriceSort: 0.4,
-    details: 'A smaller 20B parameter MoE open-weight model from OpenAI, also designed for on-premise/research use.',
+    details: 'A smaller 20B parameter MoE open-weight model from OpenAI, also designed for on-premise/research use.\n\n**Beginner Tip:** A lightweight model you can run on powerful consumer hardware.',
     isOpenSource: true,
   },
   {
@@ -321,7 +322,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 2.75,
     outputPrice: 'Varies (~$2.75)',
     outputPriceSort: 2.75,
-    details: 'A 2025 model from Mistral, likely succeeding Mistral Large 2.',
+    details: 'A 2025 model from Mistral, likely succeeding Mistral Large 2.\n\n**Beginner Tip:** Strong European model with excellent English/French capabilities.',
     isOpenSource: false,
   },
   {
@@ -333,7 +334,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 3,
     outputPrice: '$7.00',
     outputPriceSort: 7,
-    details: 'An advanced reasoning model from May 2025, designed for superior math and transparent chain-of-thought.',
+    details: 'An advanced reasoning model from May 2025, designed for superior math and transparent chain-of-thought.\n\n**Beginner Tip:** Best for complex math problems or logic puzzles.',
     isOpenSource: false,
   },
   {
@@ -345,7 +346,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A mid-sized Vision-Language (VL) multimodal model from the Qwen3 series.',
+    details: 'A mid-sized Vision-Language (VL) multimodal model from the Qwen3 series.\n\n**Beginner Tip:** Good for analyzing photos and documents efficiently.',
     isOpenSource: false,
   },
   {
@@ -357,7 +358,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.21,
     outputPrice: '$0.57',
     outputPriceSort: 0.57,
-    details: 'An open-source 36B model from ByteDance (released Sep 2025), noted for strong performance on agentic and coding benchmarks.',
+    details: 'An open-source 36B model from ByteDance (released Sep 2025), noted for strong performance on agentic and coding benchmarks.\n\n**Beginner Tip:** A strong open-source option for coding assistance.',
     isOpenSource: true,
   },
   {
@@ -369,7 +370,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 15B open-weight multimodal model (Oct 2025) designed for high reasoning performance on single-GPU deployments.',
+    details: 'A 15B open-weight multimodal model (Oct 2025) designed for high reasoning performance on single-GPU deployments.\n\n**Beginner Tip:** Great for running smart AI on a personal computer.',
     isOpenSource: true,
   },
   {
@@ -381,7 +382,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.05,
     outputPrice: '$0.40',
     outputPriceSort: 0.4,
-    details: 'The fastest, cheapest GPT-5 variant. "High" setting likely offers the best quality for this small model.',
+    details: 'The fastest, cheapest GPT-5 variant. "High" setting likely offers the best quality for this small model.\n\n**Beginner Tip:** Ultra-cheap and fast. Use this for high-volume tasks.',
     isOpenSource: false,
   },
   {
@@ -393,7 +394,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.39,
     outputPrice: '~$1.90 - $2.50',
     outputPriceSort: 1.9,
-    details: 'A 1T MoE model (32B active) from Moonshot AI (Sep 2025), known for strong long-context performance.',
+    details: 'A 1T MoE model (32B active) from Moonshot AI (Sep 2025), known for strong long-context performance.\n\n**Beginner Tip:** Capable of reading entire books at once.',
     isOpenSource: false,
   },
   {
@@ -405,7 +406,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.05,
     outputPrice: '$0.40',
     outputPriceSort: 0.4,
-    details: 'Standard/medium setting for the GPT-5 nano model.',
+    details: 'Standard/medium setting for the GPT-5 nano model.\n\n**Beginner Tip:** A good balance of speed and cost for simple apps.',
     isOpenSource: false,
   },
   {
@@ -417,7 +418,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A lightweight, fast ("Air") version of Zhipu\'s GLM-4.5 series.',
+    details: 'A lightweight, fast ("Air") version of Zhipu\'s GLM-4.5 series.\n\n**Beginner Tip:** Fast responses for casual conversation.',
     isOpenSource: false,
   },
   {
@@ -429,7 +430,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.2,
     outputPrice: '$1.50',
     outputPriceSort: 1.5,
-    details: 'Released Aug 2025. A specialized, high-speed reasoning model built for agentic coding tasks.',
+    details: 'Released Aug 2025. A specialized, high-speed reasoning model built for agentic coding tasks.\n\n**Beginner Tip:** Specifically built to write code quickly.',
     isOpenSource: false,
   },
   {
@@ -441,7 +442,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.075,
     outputPrice: '$0.30 (Text/Audio)',
     outputPriceSort: 0.3,
-    details: 'An even faster, cheaper version of Gemini 2.5 Flash.',
+    details: 'An even faster, cheaper version of Gemini 2.5 Flash.\n\n**Beginner Tip:** The cheapest option for simple tasks.',
     isOpenSource: false,
   },
   {
@@ -453,7 +454,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.05,
     outputPrice: '~$0.25',
     outputPriceSort: 0.25,
-    details: '"Low" setting for the 120B open-weight model, likely faster/cheaper inference.',
+    details: '"Low" setting for the 120B open-weight model, likely faster/cheaper inference.\n\n**Beginner Tip:** Run on local servers for low-latency applications.',
     isOpenSource: true,
   },
   {
@@ -465,7 +466,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A 30B MoE model (3B active) from the Qwen3 series, updated in July 2025.',
+    details: 'A 30B MoE model (3B active) from the Qwen3 series, updated in July 2025.\n\n**Beginner Tip:** Efficient model for mid-range tasks.',
     isOpenSource: false,
   },
   {
@@ -477,7 +478,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A July 2025 update to the 235B Qwen3 model.',
+    details: 'A July 2025 update to the 235B Qwen3 model.\n\n**Beginner Tip:** Heavy duty model for enterprise needs.',
     isOpenSource: false,
   },
   {
@@ -489,7 +490,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'The Vision-Language (VL) version of the 30B MoE model.',
+    details: 'The Vision-Language (VL) version of the 30B MoE model.\n\n**Beginner Tip:** Efficiently understands images and text together.',
     isOpenSource: false,
   },
   {
@@ -501,7 +502,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 49B parameter model from NVIDIA\'s Nemotron series, built on Llama 3.3. Open-weight.',
+    details: 'A 49B parameter model from NVIDIA\'s Nemotron series, built on Llama 3.3. Open-weight.\n\n**Beginner Tip:** Tuned for accuracy and helpfulness.',
     isOpenSource: true,
   },
   {
@@ -513,7 +514,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A 1 Trillion parameter model from InclusionAI.',
+    details: 'A 1 Trillion parameter model from InclusionAI.\n\n**Beginner Tip:** Massive scale model for large-scale enterprise use.',
     isOpenSource: false,
   },
   {
@@ -525,7 +526,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 1.25,
     outputPrice: '$10.00',
     outputPriceSort: 10,
-    details: '"Minimal" reasoning setting for the standard GPT-5 model.',
+    details: '"Minimal" reasoning setting for the standard GPT-5 model.\n\n**Beginner Tip:** Standard GPT-5 smarts with less elaboration.',
     isOpenSource: false,
   },
   {
@@ -537,7 +538,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 4B parameter open-source model from the Qwen3 series.',
+    details: 'A 4B parameter open-source model from the Qwen3 series.\n\n**Beginner Tip:** Small enough to run on many laptops.',
     isOpenSource: true,
   },
   {
@@ -549,7 +550,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A smaller, faster model in Mistral\'s 2025 "Magistral" series.',
+    details: 'A smaller, faster model in Mistral\'s 2025 "Magistral" series.\n\n**Beginner Tip:** Fast and efficient for everyday queries.',
     isOpenSource: false,
   },
   {
@@ -561,7 +562,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'Open-weight 32B model from LG (Oct 2025), featuring "Reasoning" and "Non-Reasoning" modes.',
+    details: 'Open-weight 32B model from LG (Oct 2025), featuring "Reasoning" and "Non-Reasoning" modes.\n\n**Beginner Tip:** Flexible for different types of tasks.',
     isOpenSource: true,
   },
   {
@@ -573,7 +574,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A very large, 480B parameter model from Alibaba, specialized for coding.',
+    details: 'A very large, 480B parameter model from Alibaba, specialized for coding.\n\n**Beginner Tip:** An absolute beast for complex software development.',
     isOpenSource: false,
   },
   {
@@ -585,7 +586,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Subscription',
     outputPriceSort: Infinity,
-    details: 'This likely refers to the version of GPT-5 used to power the ChatGPT consumer product, which has different rate limits/context than the API.',
+    details: 'This likely refers to the version of GPT-5 used to power the ChatGPT consumer product, which has different rate limits/context than the API.\n\n**Beginner Tip:** The version you use on the ChatGPT website.',
     isOpenSource: false,
   },
   {
@@ -597,7 +598,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.25,
     outputPrice: '$2.00',
     outputPriceSort: 2,
-    details: '"Minimal" setting for the GPT-5 mini model, fastest possible.',
+    details: '"Minimal" setting for the GPT-5 mini model, fastest possible.\n\n**Beginner Tip:** Good for background tasks where nuance doesn\'t matter.',
     isOpenSource: false,
   },
   {
@@ -609,7 +610,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.09,
     outputPrice: '$0.37',
     outputPriceSort: 0.37,
-    details: 'An open-weight model based on Llama 3.1 405B, fine-tuned for advanced reasoning. API prices are from Nous.',
+    details: 'An open-weight model based on Llama 3.1 405B, fine-tuned for advanced reasoning. API prices are from Nous.\n\n**Beginner Tip:** Uncensored and very smart. Use with responsibility.',
     isOpenSource: true,
   },
   {
@@ -621,7 +622,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'An "Omni" (multimodal) version of the 30B Qwen3 MoE model.',
+    details: 'An "Omni" (multimodal) version of the 30B Qwen3 MoE model.\n\n**Beginner Tip:** Good for tasks involving text, audio, and images.',
     isOpenSource: false,
   },
   {
@@ -633,7 +634,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A high-speed "flash" model from InclusionAI.',
+    details: 'A high-speed "flash" model from InclusionAI.\n\n**Beginner Tip:** Designed for instant answers.',
     isOpenSource: false,
   },
   {
@@ -645,7 +646,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.05,
     outputPrice: '$0.20',
     outputPriceSort: 0.2,
-    details: 'An open-weight model based on Llama 3.1 70B, fine-tuned for reasoning. API prices are from Nous.',
+    details: 'An open-weight model based on Llama 3.1 70B, fine-tuned for reasoning. API prices are from Nous.\n\n**Beginner Tip:** A favorite in the open-source community for creative writing.',
     isOpenSource: true,
   },
   {
@@ -657,7 +658,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 253B parameter model from NVIDIA, designed for high-efficiency scientific and math reasoning.',
+    details: 'A 253B parameter model from NVIDIA, designed for high-efficiency scientific and math reasoning.\n\n**Beginner Tip:** Excellent for scientific research and data analysis.',
     isOpenSource: true,
   },
   {
@@ -669,7 +670,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies (Hourly)',
     outputPriceSort: Infinity,
-    details: 'A model from Upstage, successor to Solar. Priced per hour on AWS Marketplace, not per token.',
+    details: 'A model from Upstage, successor to Solar. Priced per hour on AWS Marketplace, not per token.\n\n**Beginner Tip:** Best for businesses needing dedicated AI time.',
     isOpenSource: false,
   },
   {
@@ -681,7 +682,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'The Vision (V) multimodal version of Zhipu\'s GLM-4.5 model.',
+    details: 'The Vision (V) multimodal version of Zhipu\'s GLM-4.5 model.\n\n**Beginner Tip:** Can look at pictures and answer questions about them.',
     isOpenSource: false,
   },
   {
@@ -693,7 +694,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A small, 9B parameter open-weight model from NVIDIA.',
+    details: 'A small, 9B parameter open-weight model from NVIDIA.\n\n**Beginner Tip:** Small enough to run on a gaming PC.',
     isOpenSource: true,
   },
   {
@@ -705,7 +706,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.18,
     outputPrice: '~$0.60 - $0.42',
     outputPriceSort: 0.42,
-    details: 'Released Sep 2025. A 17B active MoE model. The 1M context may be an extended version.',
+    details: 'Released Sep 2025. A 17B active MoE model. The 1M context may be an extended version.\n\n**Beginner Tip:** A versatile, modern model for general tasks.',
     isOpenSource: true,
   },
   {
@@ -717,7 +718,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'Open-weight 49B parameter model, a collaboration between Meta (Llama 3.3) and NVIDIA (Nemotron tuning).',
+    details: 'Open-weight 49B parameter model, a collaboration between Meta (Llama 3.3) and NVIDIA (Nemotron tuning).\n\n**Beginner Tip:** High quality responses with a focus on accuracy.',
     isOpenSource: true,
   },
   {
@@ -729,7 +730,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'An iteration of Mistral\'s "Medium" tier model.',
+    details: 'An iteration of Mistral\'s "Medium" tier model.\n\n**Beginner Tip:** Good middle-ground performance.',
     isOpenSource: false,
   },
   {
@@ -741,7 +742,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A 30B MoE model from the Qwen3 series, specialized for coding.',
+    details: 'A 30B MoE model from the Qwen3 series, specialized for coding.\n\n**Beginner Tip:** Great for helping with homework coding problems.',
     isOpenSource: false,
   },
   {
@@ -753,7 +754,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.28,
     outputPrice: '$1.10',
     outputPriceSort: 1.1,
-    details: 'A 300B MoE model (47B active) from Baidu, a top-tier Chinese model released in July 2025.',
+    details: 'A 300B MoE model (47B active) from Baidu, a top-tier Chinese model released in July 2025.\n\n**Beginner Tip:** Leading performance for Chinese language tasks.',
     isOpenSource: false,
   },
   {
@@ -765,7 +766,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 2.5,
     outputPrice: '$12.50',
     outputPriceSort: 12.5,
-    details: 'Released Oct 2025. Amazon\'s most capable multimodal model, for complex reasoning.',
+    details: 'Released Oct 2025. Amazon\'s most capable multimodal model, for complex reasoning.\n\n**Beginner Tip:** Integrated deeply with AWS services.',
     isOpenSource: false,
   },
   {
@@ -777,7 +778,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A small, open-source 8B parameter Vision-Language model from the Qwen3 series.',
+    details: 'A small, open-source 8B parameter Vision-Language model from the Qwen3 series.\n\n**Beginner Tip:** Fast image analysis that you can run anywhere.',
     isOpenSource: true,
   },
   {
@@ -789,7 +790,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A distilled or hybrid model combining DeepSeek\'s reasoning with Qwen\'s 8B architecture.',
+    details: 'A distilled or hybrid model combining DeepSeek\'s reasoning with Qwen\'s 8B architecture.\n\n**Beginner Tip:** Smart reasoning in a small package.',
     isOpenSource: false,
   },
   {
@@ -801,7 +802,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 2,
     outputPrice: '~$2.00',
     outputPriceSort: 2,
-    details: 'A version of DeepSeek R1\'s reasoning capabilities distilled into a 70B Llama model.',
+    details: 'A version of DeepSeek R1\'s reasoning capabilities distilled into a 70B Llama model.\n\n**Beginner Tip:** Combines great reasoning with a reliable base model.',
     isOpenSource: false,
   },
   {
@@ -813,7 +814,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0.05,
     outputPrice: '$0.40',
     outputPriceSort: 0.4,
-    details: '"Minimal" setting for the GPT-5 nano model, fastest possible.',
+    details: '"Minimal" setting for the GPT-5 nano model, fastest possible.\n\n**Beginner Tip:** For when you just need a quick answer, no frills.',
     isOpenSource: false,
   },
   {
@@ -825,7 +826,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'An iteration of Mistral\'s "Small" tier model.',
+    details: 'An iteration of Mistral\'s "Small" tier model.\n\n**Beginner Tip:** A reliable, cost-effective choice.',
     isOpenSource: false,
   },
   {
@@ -837,7 +838,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A model from MiniMax with a massive 4-million token context window.',
+    details: 'A model from MiniMax with a massive 4-million token context window.\n\n**Beginner Tip:** Can process enormous amounts of data in one go.',
     isOpenSource: false,
   },
   {
@@ -849,7 +850,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'Meta\'s 10M context window model (released Apr 2025), primarily for research and long-context R&D.',
+    details: 'Meta\'s 10M context window model (released Apr 2025), primarily for research and long-context R&D.\n\n**Beginner Tip:** Experimental model for reading entire libraries.',
     isOpenSource: true,
   },
   {
@@ -861,7 +862,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'Released July 2024. A massive, open-weight 405B model. API pricing (e.g., $4.00) is from hosting providers.',
+    details: 'Released July 2024. A massive, open-weight 405B model. API pricing (e.g., $4.00) is from hosting providers.\n\n**Beginner Tip:** One of the smartest open-source models available.',
     isOpenSource: true,
   },
   {
@@ -873,7 +874,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'Released Sep 2025. An updated 70B open-weight model from Meta.',
+    details: 'Released Sep 2025. An updated 70B open-weight model from Meta.\n\n**Beginner Tip:** High performance without the extreme cost of larger models.',
     isOpenSource: true,
   },
   {
@@ -885,7 +886,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A model from Mistral specialized for developer and coding tasks.',
+    details: 'A model from Mistral specialized for developer and coding tasks.\n\n**Beginner Tip:** Built specifically for programmers.',
     isOpenSource: false,
   },
   {
@@ -897,7 +898,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A small, 2.0 version of InclusionAI\'s "Ling" series.',
+    details: 'A small, 2.0 version of InclusionAI\'s "Ling" series.\n\n**Beginner Tip:** Quick and light.',
     isOpenSource: false,
   },
   {
@@ -909,7 +910,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 4B open-source Vision-Language model from the Qwen3 series.',
+    details: 'A 4B open-source Vision-Language model from the Qwen3 series.\n\n**Beginner Tip:** Very small model that can see images.',
     isOpenSource: true,
   },
   {
@@ -921,7 +922,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A small, fast version of Mistral\'s developer-focused model.',
+    details: 'A small, fast version of Mistral\'s developer-focused model.\n\n**Beginner Tip:** Quick coding help.',
     isOpenSource: false,
   },
   {
@@ -933,7 +934,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 2.5,
     outputPrice: '$10.00',
     outputPriceSort: 10,
-    details: 'Released Oct 2025. Cohere\'s model for advanced agentic and multilingual tasks.',
+    details: 'Released Oct 2025. Cohere\'s model for advanced agentic and multilingual tasks.\n\n**Beginner Tip:** Excellent for business automation.',
     isOpenSource: false,
   },
   {
@@ -945,7 +946,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A small 1.2B parameter open-weight model from LG (Oct 2025), designed for on-device applications.',
+    details: 'A small 1.2B parameter open-weight model from LG (Oct 2025), designed for on-device applications.\n\n**Beginner Tip:** Tiny model that could run on a phone.',
     isOpenSource: true,
   },
   {
@@ -957,7 +958,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A small, 4B parameter open-weight model from NVIDIA.',
+    details: 'A small, 4B parameter open-weight model from NVIDIA.\n\n**Beginner Tip:** Good entry point for local AI.',
     isOpenSource: true,
   },
   {
@@ -969,7 +970,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A high-speed model from Reka AI.',
+    details: 'A high-speed model from Reka AI.\n\n**Beginner Tip:** Focuses on speed.',
     isOpenSource: false,
   },
   {
@@ -981,7 +982,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'Amazon\'s "Pro" tier model, likely sits between Premier and Lite.',
+    details: 'Amazon\'s "Pro" tier model, likely sits between Premier and Lite.\n\n**Beginner Tip:** Solid performance for AWS users.',
     isOpenSource: false,
   },
   {
@@ -993,7 +994,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'An open-weight 70B Llama model with NVIDIA\'s Nemotron fine-tuning.',
+    details: 'An open-weight 70B Llama model with NVIDIA\'s Nemotron fine-tuning.\n\n**Beginner Tip:** High-quality open-source model.',
     isOpenSource: true,
   },
   {
@@ -1005,7 +1006,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'An open-source model from IBM\'s Granite series.',
+    details: 'An open-source model from IBM\'s Granite series.\n\n**Beginner Tip:** Enterprise-grade reliability.',
     isOpenSource: true,
   },
   {
@@ -1017,7 +1018,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A small, powerful model from Microsoft, successor to the Phi-3 series.',
+    details: 'A small, powerful model from Microsoft, successor to the Phi-3 series.\n\n**Beginner Tip:** Punches above its weight class in intelligence.',
     isOpenSource: false,
   },
   {
@@ -1029,7 +1030,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'Google\'s 27B parameter open-weight model from the Gemma 3 series.',
+    details: 'Google\'s 27B parameter open-weight model from the Gemma 3 series.\n\n**Beginner Tip:** Powerful Google tech you can run yourself.',
     isOpenSource: true,
   },
   {
@@ -1041,7 +1042,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'Amazon\'s "Lite" tier model, focused on speed and cost-efficiency.',
+    details: 'Amazon\'s "Lite" tier model, focused on speed and cost-efficiency.\n\n**Beginner Tip:** Cost-effective for simple apps.',
     isOpenSource: false,
   },
   {
@@ -1053,7 +1054,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'An open-source 3B parameter model from AI21, specialized for reasoning.',
+    details: 'An open-source 3B parameter model from AI21, specialized for reasoning.\n\n**Beginner Tip:** Small but thoughtful.',
     isOpenSource: true,
   },
   {
@@ -1065,7 +1066,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A proprietary model from AI21 Labs based on their Jamba (hybrid SSM-Transformer) architecture.',
+    details: 'A proprietary model from AI21 Labs based on their Jamba (hybrid SSM-Transformer) architecture.\n\n**Beginner Tip:** Handles long documents very well.',
     isOpenSource: false,
   },
   {
@@ -1077,7 +1078,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'Google\'s 12B parameter open-weight model from the Gemma 3 series.',
+    details: 'Google\'s 12B parameter open-weight model from the Gemma 3 series.\n\n**Beginner Tip:** A balanced size for personal use.',
     isOpenSource: true,
   },
   {
@@ -1089,7 +1090,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A "preview" or "January" version of Mistral\'s code-specialized model.',
+    details: 'A "preview" or "January" version of Mistral\'s code-specialized model.\n\n**Beginner Tip:** Try this for coding help.',
     isOpenSource: false,
   },
   {
@@ -1101,7 +1102,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A modified, uncensored version of DeepSeek R1, post-trained by Perplexity AI for unfiltered information access.',
+    details: 'A modified, uncensored version of DeepSeek R1, post-trained by Perplexity AI for unfiltered information access.\n\n**Beginner Tip:** Provides direct answers without filtering.',
     isOpenSource: false,
   },
   {
@@ -1113,7 +1114,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 90B parameter open-weight model from Meta, with vision capabilities.',
+    details: 'A 90B parameter open-weight model from Meta, with vision capabilities.\n\n**Beginner Tip:** High-quality visual understanding.',
     isOpenSource: true,
   },
   {
@@ -1125,7 +1126,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'Amazon\'s smallest, fastest model.',
+    details: 'Amazon\'s smallest, fastest model.\n\n**Beginner Tip:** Lightning fast.',
     isOpenSource: false,
   },
   {
@@ -1137,7 +1138,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'An 8B parameter (1B active) MoE model from Liquid AI.',
+    details: 'An 8B parameter (1B active) MoE model from Liquid AI.\n\n**Beginner Tip:** Innovative architecture, very efficient.',
     isOpenSource: true,
   },
   {
@@ -1149,7 +1150,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A very small open-source model from IBM.',
+    details: 'A very small open-source model from IBM.\n\n**Beginner Tip:** Tiny and functional.',
     isOpenSource: true,
   },
   {
@@ -1161,7 +1162,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'An open-source, "mini" version of the Phi-4 model.',
+    details: 'An open-source, "mini" version of the Phi-4 model.\n\n**Beginner Tip:** Microsoft\'s efficient small model.',
     isOpenSource: true,
   },
   {
@@ -1173,7 +1174,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A deprecated (older) Hermes model based on a 24B Mistral architecture.',
+    details: 'A deprecated (older) Hermes model based on a 24B Mistral architecture.\n\n**Beginner Tip:** An older creative model.',
     isOpenSource: true,
   },
   {
@@ -1185,7 +1186,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'An 11B parameter open-weight model from Meta, with vision capabilities.',
+    details: 'An 11B parameter open-weight model from Meta, with vision capabilities.\n\n**Beginner Tip:** Good visual skills in a manageable size.',
     isOpenSource: true,
   },
   {
@@ -1197,7 +1198,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 4B parameter open-weight model from Google\'s Gemma 3 series.',
+    details: 'A 4B parameter open-weight model from Google\'s Gemma 3 series.\n\n**Beginner Tip:** Efficient Google technology.',
     isOpenSource: true,
   },
   {
@@ -1209,7 +1210,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A small, proprietary model from AI21 Labs.',
+    details: 'A small, proprietary model from AI21 Labs.\n\n**Beginner Tip:** Reliable small model.',
     isOpenSource: false,
   },
   {
@@ -1221,7 +1222,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 4B parameter open-weight model from the Gemma 3 series.',
+    details: 'A 4B parameter open-weight model from the Gemma 3 series.\n\n**Beginner Tip:** Good for basic tasks.',
     isOpenSource: true,
   },
   {
@@ -1233,7 +1234,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 1B parameter open-source model from IBM.',
+    details: 'A 1B parameter open-source model from IBM.\n\n**Beginner Tip:** Very small, runs almost anywhere.',
     isOpenSource: true,
   },
   {
@@ -1245,7 +1246,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'A model from Cohere\'s multilingual "Aya" series.',
+    details: 'A model from Cohere\'s multilingual "Aya" series.\n\n**Beginner Tip:** Great for languages other than English.',
     isOpenSource: false,
   },
   {
@@ -1257,7 +1258,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 1B parameter open-source model from IBM.',
+    details: 'A 1B parameter open-source model from IBM.\n\n**Beginner Tip:** Highly efficient.',
     isOpenSource: true,
   },
   {
@@ -1269,7 +1270,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'An open-source, multimodal version of the Phi-4 model.',
+    details: 'An open-source, multimodal version of the Phi-4 model.\n\n**Beginner Tip:** Can handle text, audio, and images.',
     isOpenSource: true,
   },
   {
@@ -1281,7 +1282,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'Likely an open-source 8B model, possibly related to Llama 3.1 8B.',
+    details: 'Likely an open-source 8B model, possibly related to Llama 3.1 8B.\n\n**Beginner Tip:** A standard size for personal AI assistants.',
     isOpenSource: true,
   },
   {
@@ -1293,7 +1294,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 2.6B parameter model from Liquid AI, based on their Liquid-State-Space-Model architecture.',
+    details: 'A 2.6B parameter model from Liquid AI, based on their Liquid-State-Space-Model architecture.\n\n**Beginner Tip:** Very efficient processing.',
     isOpenSource: true,
   },
   {
@@ -1305,7 +1306,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 2B parameter open-weight model from Google.',
+    details: 'A 2B parameter open-weight model from Google.\n\n**Beginner Tip:** Tiny and fast.',
     isOpenSource: true,
   },
   {
@@ -1317,7 +1318,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'Likely an open-source 3B model.',
+    details: 'Likely an open-source 3B model.\n\n**Beginner Tip:** Very fast.',
     isOpenSource: true,
   },
   {
@@ -1329,7 +1330,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: Infinity,
     outputPrice: 'Varies',
     outputPriceSort: Infinity,
-    details: 'An 8B multilingual model from Cohere with a smaller context window.',
+    details: 'An 8B multilingual model from Cohere with a smaller context window.\n\n**Beginner Tip:** Good for short translations.',
     isOpenSource: false,
   },
   {
@@ -1341,7 +1342,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 1.2B parameter model from Liquid AI.',
+    details: 'A 1.2B parameter model from Liquid AI.\n\n**Beginner Tip:** Extremely lightweight.',
     isOpenSource: true,
   },
   {
@@ -1353,7 +1354,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 350M parameter open-source model from IBM.',
+    details: 'A 350M parameter open-source model from IBM.\n\n**Beginner Tip:** Microscopic model for basic tasks.',
     isOpenSource: true,
   },
   {
@@ -1365,7 +1366,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 350M parameter open-source model from IBM.',
+    details: 'A 350M parameter open-source model from IBM.\n\n**Beginner Tip:** Very tiny.',
     isOpenSource: true,
   },
   {
@@ -1377,7 +1378,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 1B parameter open-weight model from Google.',
+    details: 'A 1B parameter open-weight model from Google.\n\n**Beginner Tip:** Good for simple mobile apps.',
     isOpenSource: true,
   },
   {
@@ -1389,7 +1390,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A 270M parameter open-weight model from Google.',
+    details: 'A 270M parameter open-weight model from Google.\n\n**Beginner Tip:** The smallest model here.',
     isOpenSource: true,
   },
   {
@@ -1401,7 +1402,7 @@ export const modelData: AiModel[] = [
     inputPriceSort: 0,
     outputPrice: 'Open',
     outputPriceSort: 0,
-    details: 'A deprecated (older) Hermes model based on Llama 3.1 8B.',
+    details: 'A deprecated (older) Hermes model based on Llama 3.1 8B.\n\n**Beginner Tip:** An older but reliable creative model.',
     isOpenSource: true,
   },
 ];

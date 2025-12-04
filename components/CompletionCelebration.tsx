@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useRef } from 'react';
 import { useAuth } from '../hooks/useAuth';
 
@@ -112,7 +113,7 @@ const CompletionCelebration: React.FC = () => {
         }
     };
     
-    const certId = `ZV-M12-${user?.email.slice(0, 4).toUpperCase()}${new Date().getFullYear()}`;
+    const certId = `ZV-M1-${user?.email.slice(0, 4).toUpperCase()}${new Date().getFullYear()}`;
 
     return (
         <div className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 ${showModal ? 'opacity-100' : 'opacity-0'}`} style={{ backgroundColor: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(8px)'}}>
@@ -148,7 +149,7 @@ const CompletionCelebration: React.FC = () => {
                     <div className="text-center z-10 my-4">
                         <p className="text-brand-text-light mb-1">is hereby granted to</p>
                         <h1 className="text-5xl font-extrabold text-brand-text tracking-tight">{certificateName}</h1>
-                        <p className="text-brand-text-light mt-2 max-w-xl mx-auto">for successfully completing Modules 1 & 2 of the "Introduction to Machine Learning" curriculum.</p>
+                        <p className="text-brand-text-light mt-2 max-w-xl mx-auto">for successfully completing Module 1 of the "Introduction to Machine Learning" curriculum.</p>
                     </div>
 
                     <div className="flex justify-between items-end text-xs font-mono text-brand-text-light/80 z-10">

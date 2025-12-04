@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import type { InteractiveComponentProps } from '../../types';
 import { useAuth } from '../../hooks/useAuth';
@@ -27,14 +28,19 @@ const ExplainabilityPanel: React.FC<InteractiveComponentProps> = ({ interactiveI
 
     return (
         <div className="my-8 p-6 bg-brand-bg rounded-2xl shadow-neumorphic-out">
-            <h4 className="font-bold text-lg text-brand-text mb-2 text-center">Explainability Panel (XAI)</h4>
-            <p className="text-center text-brand-text-light mb-4 text-sm">Hover over words in the prompt to see their simulated influence on the generated image.</p>
+            <h4 className="font-bold text-lg text-brand-text mb-2 text-center">The Word Weighing Scale</h4>
+            <p className="text-center text-brand-text-light mb-6 text-sm">
+                How much does the AI care about each word? Hover to weigh them.
+            </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                <div className="p-4 bg-brand-bg rounded-lg shadow-neumorphic-in">
-                    <h5 className="font-semibold text-brand-text mb-2">Prompt:</h5>
-                    <p className="text-lg">
-                        {words.map((word, i) => (
+            <div className="flex flex-col items-center gap-8">
+                {/* Sentence Display */}
+                <div className="flex flex-wrap justify-center gap-2 p-6 bg-white rounded-xl shadow-inner-sm w-full border border-slate-100">
+                    {words.map((word, i) => {
+                        const weight = wordInfluences[word] || wordInfluences.default;
+                        const isHovered = hoveredWord === word;
+                        
+                        return (
                             <span 
                                 key={i} 
                                 onMouseEnter={() => {
@@ -42,21 +48,40 @@ const ExplainabilityPanel: React.FC<InteractiveComponentProps> = ({ interactiveI
                                     handleInteraction();
                                 }} 
                                 onMouseLeave={() => setHoveredWord(null)}
-                                className="cursor-pointer transition-colors p-1 rounded-md"
-                                style={{ backgroundColor: `rgba(139, 92, 246, ${wordInfluences[word] || wordInfluences.default})`}}
+                                className={`
+                                    relative cursor-pointer px-3 py-1 rounded-lg font-medium transition-all duration-200 transform hover:-translate-y-1
+                                    ${isHovered ? 'bg-brand-primary text-white shadow-md scale-110' : 'bg-slate-100 text-slate-600 hover:bg-brand-primary/10'}
+                                `}
                             >
-                                {word}{' '}
+                                {word}
+                                {/* Mini Bar Chart per word */}
+                                <span className="absolute bottom-0 left-0 h-1 bg-brand-primary/30 rounded-full" style={{ width: `${weight * 100}%` }}></span>
                             </span>
-                        ))}
-                    </p>
+                        );
+                    })}
                 </div>
-                 <div className="p-4 bg-brand-bg rounded-lg shadow-neumorphic-in text-center">
-                    <h5 className="font-semibold text-brand-text mb-2">Influence Score</h5>
-                    <div className="text-4xl font-bold text-brand-primary h-12">
-                        {hoveredWord && ((wordInfluences[hoveredWord] || wordInfluences.default) * 100).toFixed(0) + '%'}
-                    </div>
-                    <p className="text-sm text-brand-text-light">{hoveredWord ? `Influence of "${hoveredWord}"` : 'Hover over a word'}</p>
-                 </div>
+
+                {/* Weighing Scale Visual */}
+                <div className="w-full max-w-sm p-6 bg-brand-bg rounded-xl shadow-neumorphic-in flex flex-col items-center justify-center min-h-[160px] transition-all">
+                    {hoveredWord ? (
+                        <>
+                            <p className="text-sm font-bold uppercase tracking-widest text-brand-text-light mb-2">Weight Analysis</p>
+                            <h2 className="text-4xl font-black text-brand-primary mb-1">"{hoveredWord}"</h2>
+                            
+                            <div className="w-full bg-slate-200 h-4 rounded-full overflow-hidden mt-2 relative">
+                                <div 
+                                    className="bg-gradient-to-r from-brand-secondary to-brand-primary h-full transition-all duration-300" 
+                                    style={{ width: `${(wordInfluences[hoveredWord] || wordInfluences.default) * 100}%` }}
+                                ></div>
+                            </div>
+                            <p className="mt-2 font-mono text-sm text-slate-500">
+                                Importance: {((wordInfluences[hoveredWord] || wordInfluences.default) * 100).toFixed(0)}%
+                            </p>
+                        </>
+                    ) : (
+                        <p className="text-brand-text-light opacity-50 font-medium">Hover over a word above to measure its impact.</p>
+                    )}
+                </div>
             </div>
         </div>
     );

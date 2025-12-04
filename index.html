@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,8 +76,8 @@
                 '100%': { transform: 'translateY(var(--end-y))', opacity: 1 },
             },
             'float': {
-                '0%': { transform: 'translateY(var(--end-y))', opacity: 1 },
-                '100%': { transform: 'translateY(var(--start-y))', opacity: 1 },
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
             },
             'shake': {
                 '0%, 100%': { transform: 'translateX(0)' },
@@ -107,6 +108,42 @@
                 '0%': { transform: 'translateY(0) scale(0.8)', opacity: '1' },
                 '100%': { transform: 'translateY(-50px) scale(1)', opacity: '0' },
             },
+            'glitch': {
+                '0%': { transform: 'translate(0)' },
+                '20%': { transform: 'translate(-2px, 2px)' },
+                '40%': { transform: 'translate(-2px, -2px)' },
+                '60%': { transform: 'translate(2px, 2px)' },
+                '80%': { transform: 'translate(2px, -2px)' },
+                '100%': { transform: 'translate(0)' },
+            },
+            'shimmer': {
+                '0%': { backgroundPosition: '-1000px 0' },
+                '100%': { backgroundPosition: '1000px 0' }
+            },
+            'tassel-swing': {
+                '0%, 100%': { transform: 'rotate(0deg)' },
+                '25%': { transform: 'rotate(15deg)' },
+                '75%': { transform: 'rotate(-15deg)' },
+            },
+            'liquid-bubble': {
+                '0%': { transform: 'translateY(0) scale(1)', opacity: 0 },
+                '50%': { opacity: 1 },
+                '100%': { transform: 'translateY(-20px) scale(1.2)', opacity: 0 },
+            },
+            'vapor-rise': {
+                '0%': { transform: 'translateY(0) scale(1)', opacity: 0.6 },
+                '100%': { transform: 'translateY(-12px) scale(1.5)', opacity: 0 },
+            },
+            'star-burst': {
+                '0%': { transform: 'scale(0) rotate(0deg)', opacity: 0 },
+                '50%': { opacity: 1 },
+                '100%': { transform: 'scale(1.5) rotate(45deg)', opacity: 0 },
+            },
+            'shake-tilt': {
+                '0%, 100%': { transform: 'rotate(0deg)' },
+                '25%': { transform: 'rotate(-5deg)' },
+                '75%': { transform: 'rotate(5deg)' },
+            }
           },
           animation: {
             'fade-in': 'fade-in 0.5s ease-out forwards',
@@ -116,11 +153,18 @@
             'glow-red': 'glow-red 1.5s infinite',
             'loss-landscape': 'loss-landscape 3s ease-in-out forwards',
             'gravity': 'gravity 1s ease-in forwards',
-            'float': 'float 1.5s ease-out forwards',
+            'float': 'float 3s ease-in-out infinite',
             'shake': 'shake 0.5s ease-in-out forwards',
             'paint-drip': 'gravity 2s linear infinite',
             'aurora': 'aurora 60s linear infinite',
             'float-up-fade': 'float-up-fade 1.5s ease-out forwards',
+            'glitch': 'glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite',
+            'shimmer': 'shimmer 2s linear infinite',
+            'tassel-swing': 'tassel-swing 1s ease-in-out infinite',
+            'liquid-bubble': 'liquid-bubble 2s ease-out infinite',
+            'vapor-rise': 'vapor-rise 2.5s ease-out infinite',
+            'star-burst': 'star-burst 0.8s ease-out forwards',
+            'shake-tilt': 'shake-tilt 0.5s ease-in-out forwards',
           }
         },
       },
@@ -133,6 +177,26 @@
       color: #1F2937;
       overflow-x: hidden;
     }
+    
+    /* Premium Selection Style */
+    ::selection {
+      background: rgba(124, 58, 237, 0.2); /* Brand Primary with opacity */
+      color: #7C3AED;
+    }
+
+    /* Cinematic Noise Overlay */
+    .noise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
     .aurora-bg {
         position: fixed;
         top: 0;
@@ -160,46 +224,46 @@
         width: 500px;
         height: 500px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 60%);
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent 60%);
         pointer-events: none;
         z-index: -1;
         transition: transform 0.1s ease-out;
         will-change: transform;
+        mix-blend-mode: overlay;
     }
     .glass-header {
       background-color: rgba(240, 242, 245, 0.6);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     }
     .glass-card {
-      background: linear-gradient(145deg, rgba(240,242,245,0.7), rgba(225,229,235,0.7));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: linear-gradient(145deg, rgba(255,255,255,0.6), rgba(240,242,245,0.4));
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-radius: 1.25rem;
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 8px 8px 24px #D1D9E6, -8px -8px 24px #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.05), 
+        0 2px 4px -1px rgba(0, 0, 0, 0.03),
+        inset 0 0 20px rgba(255,255,255,0.5);
     }
     .border-glass-stroke {
       border-color: rgba(0, 0, 0, 0.07);
     }
     .liquid-scrollbar::-webkit-scrollbar {
-        width: 10px;
+        width: 8px;
     }
     .liquid-scrollbar::-webkit-scrollbar-track {
-        background: rgba(225, 229, 235, 0.5);
-        border-radius: 5px;
-        margin: 4px 0;
+        background: transparent;
     }
     .liquid-scrollbar::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, #A78BFA, #7C3AED);
-        border-radius: 5px;
-        border: 2px solid #F0F2F5;
-        box-shadow: 0 0 8px rgba(124, 58, 237, 0);
-        transition: box-shadow 0.3s ease-in-out;
+        background: rgba(124, 58, 237, 0.3);
+        border-radius: 20px;
+        transition: background 0.3s ease;
     }
     .liquid-scrollbar::-webkit-scrollbar-thumb:hover {
-        box-shadow: 0 0 12px rgba(124, 58, 237, 0.7);
+        background: rgba(124, 58, 237, 0.6);
     }
     .sidebar-link::after {
         content: '';
@@ -262,6 +326,34 @@
     input:focus-visible, textarea:focus-visible, select:focus-visible {
        box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.4);
     }
+    
+    /* Glitch Effect Class */
+    .glitch-text {
+        position: relative;
+        animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+        color: #10B981;
+    }
+    .glitch-text::before,
+    .glitch-text::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .glitch-text::before {
+        left: 2px;
+        text-shadow: -2px 0 #ff00c1;
+        clip: rect(44px, 450px, 56px, 0);
+        animation: glitch 5s infinite linear alternate-reverse;
+    }
+    .glitch-text::after {
+        left: -2px;
+        text-shadow: -2px 0 #00fff9;
+        clip: rect(44px, 450px, 56px, 0);
+        animation: glitch 5s infinite linear alternate-reverse;
+    }
 
   </style>
   
@@ -279,6 +371,7 @@
 
 </head>
 <body>
+  <div class="noise-overlay"></div>
   <div class="aurora-bg"></div>
   <div class="mouse-spotlight"></div>
   <div id="root"></div>

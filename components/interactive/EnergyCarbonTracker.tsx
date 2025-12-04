@@ -1,27 +1,37 @@
+
 import React, { useState } from 'react';
 import type { InteractiveComponentProps } from '../../types';
 import { useAuth } from '../../hooks/useAuth';
 
-// Example data points (Wh per 1M tokens). These are illustrative.
+// Example data points (Wh per 1M tokens). These are illustrative based on rough industry estimates.
 const modelEnergy = {
-    'gemini-2.5-flash': 50,  // Wh per 1M tokens
-    'gemini-2.5-pro': 200, // Wh per 1M tokens
-    'gpt-5-hypothetical': 500 // Wh per 1M tokens
+    'gemini-2.5-flash': 50,  // Efficient
+    'gemini-2.5-pro': 200,   // Standard
+    'gpt-5-heavy': 600       // Hypothetical heavy model
 };
 
-const CO2_PER_KWH = 400; // gCO2e per kWh (global average, illustrative)
+const CO2_PER_WH = 0.4; // grams per Wh (global average)
+const CAR_DIST_PER_G_CO2 = 120; // meters driven per gram of CO2 (approx)
+const BULB_WATTS = 10; // 10W LED bulb
 
 const EnergyCarbonTracker: React.FC<InteractiveComponentProps> = ({ interactiveId }) => {
     const { user, addPoints, updateProgress } = useAuth();
     const [model, setModel] = useState<keyof typeof modelEnergy>('gemini-2.5-flash');
-    const [tokens, setTokens] = useState(1000000); // Default to 1M
+    const [queries, setQueries] = useState(100); // Number of queries (assuming ~1k tokens each)
 
     const hasCompleted = user?.progress.completedInteractives.includes(interactiveId);
 
-    const energyWh = (tokens / 1000000) * modelEnergy[model];
-    const carbonGrams = (energyWh / 1000) * CO2_PER_KWH;
+    // Calculate metrics
+    // Assume 1 query = ~1000 tokens (input + output)
+    const totalTokens = queries * 1000;
+    const energyWh = (totalTokens / 1000000) * modelEnergy[model]; 
+    
+    // Impact Visuals
+    const bulbHours = (energyWh / BULB_WATTS);
+    const carbonGrams = energyWh * CO2_PER_WH;
+    const carMeters = carbonGrams / (150 / 1000); // ~150g CO2/km for a car -> 0.15g/m
 
-    const handleModelChange = () => {
+    const handleInteraction = () => {
         if (!hasCompleted) {
             addPoints(25);
             updateProgress(interactiveId, 'interactive');
@@ -30,55 +40,68 @@ const EnergyCarbonTracker: React.FC<InteractiveComponentProps> = ({ interactiveI
 
     return (
         <div className="my-8 p-6 bg-brand-bg rounded-2xl shadow-neumorphic-out">
-            <h4 className="font-bold text-lg text-brand-text mb-4 text-center">Energy & Carbon Tracker</h4>
-            <p className="text-center text-brand-text-light mb-6 text-sm">Estimate the energy and carbon footprint for processing a given number of tokens with different models.</p>
+            <h4 className="font-bold text-lg text-brand-text mb-2 text-center">Energy Cost Calculator</h4>
+            <p className="text-center text-brand-text-light mb-6 text-sm">Every AI thought burns real-world fuel. See the impact.</p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                <div className="space-y-6">
-                    <div>
-                        <label className="block text-sm font-semibold text-brand-text mb-2">AI Model</label>
+            <div className="flex flex-col gap-6">
+                
+                {/* Controls */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                        <label className="block text-xs font-bold text-slate-400 uppercase mb-2">Model "Brain" Size</label>
                         <select 
                             value={model} 
                             onChange={(e) => {
                                 setModel(e.target.value as keyof typeof modelEnergy);
-                                handleModelChange();
+                                handleInteraction();
                             }} 
-                            className="w-full p-3 bg-brand-bg rounded-lg shadow-neumorphic-in focus:outline-none"
+                            className="w-full p-2 bg-brand-bg rounded-lg text-sm font-semibold outline-none focus:ring-2 focus:ring-brand-primary"
                         >
-                            <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
-                            <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
-                            <option value="gpt-5-hypothetical">GPT-5 (Hypothetical)</option>
+                            <option value="gemini-2.5-flash">Flash (Small/Fast)</option>
+                            <option value="gemini-2.5-pro">Pro (Medium/Smart)</option>
+                            <option value="gpt-5-heavy">Ultra-Heavy (Massive)</option>
                         </select>
                     </div>
-                    <div>
-                        <label className="block text-sm font-semibold text-brand-text mb-2">Number of Tokens: {tokens.toLocaleString()}</label>
+                    <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                        <label className="block text-xs font-bold text-slate-400 uppercase mb-2">Number of Questions: {queries}</label>
                         <input 
                             type="range" 
-                            min="100000" 
-                            max="10000000" 
-                            step="100000" 
-                            value={tokens} 
+                            min="10" 
+                            max="10000" 
+                            step="10"
+                            value={queries} 
                             onChange={(e) => {
-                                setTokens(Number(e.target.value));
-                                handleModelChange();
+                                setQueries(Number(e.target.value));
+                                handleInteraction();
                             }} 
-                            className="w-full h-2 bg-brand-bg rounded-lg appearance-none cursor-pointer shadow-neumorphic-in" 
+                            className="w-full h-2 bg-brand-bg rounded-lg appearance-none cursor-pointer accent-brand-primary" 
                         />
                     </div>
                 </div>
 
-                <div className="p-4 bg-brand-bg rounded-lg shadow-neumorphic-in space-y-4">
-                    <div className="text-center">
-                        <p className="text-brand-text-light">Est. Energy Consumption</p>
-                        <p className="text-3xl font-bold text-brand-primary">{energyWh.toFixed(2)} <span className="text-xl">Wh</span></p>
-                         <p className="text-xs text-brand-text-light">(Equivalent to powering a 10W LED bulb for {Math.round(energyWh/10)} hours)</p>
+                {/* Visualizations */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Lightbulb Metaphor */}
+                    <div className="relative overflow-hidden bg-gradient-to-br from-yellow-50 to-orange-50 p-6 rounded-xl border border-yellow-100 flex flex-col items-center justify-center text-center">
+                        <div className="text-5xl mb-2 filter drop-shadow-md">💡</div>
+                        <p className="text-yellow-900 font-bold text-2xl">{bulbHours.toFixed(2)} Hours</p>
+                        <p className="text-yellow-700/70 text-xs font-medium">of an LED lightbulb burning</p>
                     </div>
-                    <div className="text-center">
-                        <p className="text-brand-text-light">Est. Carbon Footprint</p>
-                        <p className="text-3xl font-bold text-brand-primary">{carbonGrams.toFixed(2)} <span className="text-xl">gCO₂e</span></p>
-                        <p className="text-xs text-brand-text-light">(Equivalent to driving a car for ~{Math.round(carbonGrams/120)} meters)</p>
+
+                    {/* Car Metaphor */}
+                    <div className="relative overflow-hidden bg-gradient-to-br from-slate-100 to-gray-200 p-6 rounded-xl border border-slate-300 flex flex-col items-center justify-center text-center">
+                        <div className="text-5xl mb-2 filter drop-shadow-md">🚗</div>
+                        <p className="text-slate-800 font-bold text-2xl">{carMeters.toFixed(1)} Meters</p>
+                        <p className="text-slate-600/70 text-xs font-medium">driven by a gas car</p>
                     </div>
                 </div>
+
+                <div className="bg-black/5 p-3 rounded-lg text-center">
+                    <p className="text-xs text-slate-500 font-mono">
+                        Total Energy: <strong>{energyWh.toFixed(2)} Wh</strong> | Est. Carbon: <strong>{carbonGrams.toFixed(2)} gCO₂</strong>
+                    </p>
+                </div>
+
             </div>
         </div>
     );

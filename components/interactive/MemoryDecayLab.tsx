@@ -1,26 +1,28 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import type { InteractiveComponentProps } from '../../types';
 import { useAuth } from '../../hooks/useAuth';
-import { getAiClient } from '../../services/aiService';
 import { SendIcon } from '../icons/SendIcon';
-import { SparklesIcon } from '../icons/SparklesIcon';
 
 interface Message {
     sender: 'user' | 'bot';
     text: string;
+    id: number;
 }
 
 const MemoryDecayLab: React.FC<InteractiveComponentProps> = ({ interactiveId }) => {
     const { user, addPoints, updateProgress } = useAuth();
     const [messages, setMessages] = useState<Message[]>([
-        { sender: 'bot', text: "Hello! Let's talk. Tell me about your favorite hobby and your favorite color." }
+        { sender: 'bot', text: "Hi! I have a very short memory (only 4 messages). Tell me your name!", id: 1 }
     ]);
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
-    const [analysis, setAnalysis] = useState('');
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     const hasCompleted = user?.progress.completedInteractives.includes(interactiveId);
+    
+    // Max capacity of 'memory'
+    const CAPACITY = 4;
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -29,70 +31,72 @@ const MemoryDecayLab: React.FC<InteractiveComponentProps> = ({ interactiveId }) 
     const handleSend = () => {
         if (!input.trim() || loading) return;
         
-        // FIX: Explicitly type the new message object to conform to the Message interface.
-        // This resolves the TypeScript error where 'sender' was being inferred as a generic string.
-        const userMessage: Message = { sender: 'user', text: input };
+        const userMessage: Message = { sender: 'user', text: input, id: Date.now() };
         setMessages(prev => [...prev, userMessage]);
         setInput('');
         setLoading(true);
 
-        // Simple bot response
+        // Simulate interaction and point scoring
+        if (!hasCompleted && messages.length > 5) {
+             addPoints(25);
+             updateProgress(interactiveId, 'interactive');
+        }
+
         setTimeout(() => {
-            const botResponses = ["That's interesting!", "Tell me more.", "Fascinating. What else?", "I see."];
+            const botResponses = [
+                "That's interesting! Tell me more.",
+                "Wait, what were we talking about at the start?",
+                "I see. Anything else?",
+                "Okay, go on."
+            ];
             const response = botResponses[Math.floor(Math.random() * botResponses.length)];
-            const botMessage: Message = { sender: 'bot', text: response };
+            const botMessage: Message = { sender: 'bot', text: response, id: Date.now() + 1 };
             setMessages(prev => [...prev, botMessage]);
             setLoading(false);
-        }, 500);
+        }, 600);
     };
 
-    const handleAnalyze = async () => {
-        setLoading(true);
-        setAnalysis('');
-        const conversationHistory = messages.map(m => `${m.sender}: ${m.text}`).join('\n');
-        
-        // Simulate a limited context window by taking only the last few messages
-        const shortTermMemory = messages.slice(-4).map(m => `${m.sender}: ${m.text}`).join('\n');
-
-        const prompt = `An AI with a limited memory (it can only remember the last 4 messages) had a longer conversation.
-        Full conversation:
-        ${conversationHistory}
-
-        The AI's current memory:
-        ${shortTermMemory}
-        
-        Based on its limited memory, what specific details from the START of the conversation has the AI likely forgotten? Be specific. For example, mention favorite colors or hobbies if they are no longer in the short-term memory.`;
-
-        try {
-            const ai = await getAiClient();
-            const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
-            setAnalysis(response.text);
-            if (!hasCompleted) {
-                addPoints(25);
-                updateProgress(interactiveId, 'interactive');
-            }
-        } catch (e) {
-            console.error(e);
-            setAnalysis("Error analyzing memory. The concept is that early details like your initial favorite color or hobby would be forgotten as the conversation moves on and they fall out of the limited context window.");
-        } finally {
-            setLoading(false);
-        }
-    };
+    // Calculate which messages are "forgotten"
+    const totalMessages = messages.length;
+    const forgottenCount = Math.max(0, totalMessages - CAPACITY);
 
     return (
         <div className="my-8 p-6 bg-brand-bg rounded-2xl shadow-neumorphic-out">
             <h4 className="font-bold text-lg text-brand-text mb-2 text-center">Memory Decay Lab</h4>
-            <p className="text-center text-brand-text-light mb-4 text-sm">Have a short conversation, then click "Analyze Memory" to see what the AI has 'forgotten'.</p>
+            <p className="text-center text-brand-text-light mb-4 text-sm">
+                This bot only remembers the last 4 messages. Watch the old ones "fade away".
+            </p>
 
-            <div className="max-w-lg mx-auto">
-                <div className="h-64 p-3 bg-brand-bg rounded-lg shadow-neumorphic-in overflow-y-auto space-y-3 liquid-scrollbar">
-                    {messages.map((msg, index) => (
-                        <div key={index} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                            <div className={`px-3 py-2 rounded-lg max-w-xs ${msg.sender === 'user' ? 'bg-brand-primary text-white' : 'bg-brand-bg shadow-neumorphic-out-sm'}`}>
-                                {msg.text}
-                            </div>
+            <div className="max-w-md mx-auto">
+                <div className="h-80 p-4 bg-brand-bg rounded-xl shadow-neumorphic-in overflow-y-auto space-y-3 liquid-scrollbar relative">
+                    {/* Visual Marker for Memory Cutoff */}
+                    {forgottenCount > 0 && (
+                        <div className="sticky top-0 w-full text-center py-2 z-10 pointer-events-none">
+                            <span className="bg-red-100 text-red-600 text-xs font-bold px-3 py-1 rounded-full shadow-sm backdrop-blur-sm">
+                                ↑ Forgotten Zone
+                            </span>
                         </div>
-                    ))}
+                    )}
+
+                    {messages.map((msg, index) => {
+                        // Calculate opacity based on distance from the end
+                        // Index 0 is oldest. 
+                        // If we have 6 messages, indexes 0 and 1 are forgotten.
+                        const reverseIndex = totalMessages - 1 - index; // 0 for newest
+                        const isForgotten = reverseIndex >= CAPACITY;
+                        
+                        return (
+                            <div 
+                                key={msg.id} 
+                                className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} transition-all duration-500`}
+                                style={{ opacity: isForgotten ? 0.3 : 1, filter: isForgotten ? 'blur(1px)' : 'none' }}
+                            >
+                                <div className={`px-4 py-2 rounded-xl max-w-xs text-sm ${msg.sender === 'user' ? 'bg-brand-primary text-white rounded-br-none' : 'bg-white shadow-sm text-brand-text rounded-bl-none'}`}>
+                                    {msg.text}
+                                </div>
+                            </div>
+                        );
+                    })}
                     <div ref={messagesEndRef} />
                 </div>
 
@@ -102,28 +106,14 @@ const MemoryDecayLab: React.FC<InteractiveComponentProps> = ({ interactiveId }) 
                         value={input}
                         onChange={e => setInput(e.target.value)}
                         onKeyPress={e => e.key === 'Enter' && handleSend()}
-                        placeholder="Type here..."
+                        placeholder="Chat to push out old memories..."
                         className="flex-grow px-4 py-3 bg-brand-bg rounded-full focus:outline-none focus:ring-2 focus:ring-brand-primary text-brand-text shadow-neumorphic-in"
+                        disabled={loading}
                     />
-                    <button onClick={handleSend} disabled={loading} className="p-3 bg-brand-primary text-white rounded-full shadow-neumorphic-out disabled:opacity-50">
+                    <button onClick={handleSend} disabled={loading} className="p-3 bg-brand-primary text-white rounded-full shadow-neumorphic-out disabled:opacity-50 hover:shadow-neumorphic-in transition-all active:scale-95">
                         <SendIcon />
                     </button>
                 </div>
-                
-                 <div className="text-center mt-4">
-                    <button onClick={handleAnalyze} disabled={loading || messages.length < 4} className="inline-flex items-center gap-2 bg-brand-bg text-brand-primary font-bold py-2 px-6 rounded-full transition-all duration-300 shadow-neumorphic-out hover:shadow-neumorphic-in disabled:opacity-50 disabled:cursor-not-allowed">
-                        <SparklesIcon />
-                        Analyze Memory
-                    </button>
-                </div>
-
-                {(loading || analysis) && (
-                    <div className="mt-4 p-4 bg-brand-bg rounded-lg shadow-neumorphic-in">
-                        <h5 className="font-semibold text-brand-text mb-2">AI Memory Analysis</h5>
-                         {loading && !analysis && <p className="animate-pulse">Analyzing...</p>}
-                         {analysis && <p className="text-brand-text-light">{analysis}</p>}
-                    </div>
-                )}
             </div>
         </div>
     );

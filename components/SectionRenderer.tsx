@@ -1,3 +1,4 @@
+
 import React, { Suspense } from 'react';
 import type { ContentItem, Section } from '../types';
 import CodeBlock from './CodeBlock';
@@ -10,11 +11,13 @@ const AgentSystemDesigner = React.lazy(() => import('./interactive/AgentSystemDe
 const AiAlignmentTuner = React.lazy(() => import('./interactive/AiAlignmentTuner'));
 const AiEthicsTracker = React.lazy(() => import('./interactive/AiEthicsTracker'));
 const AiPaletteSynthesizer = React.lazy(() => import('./interactive/AiPaletteSynthesizer'));
+const AiSystemVisualizer = React.lazy(() => import('./interactive/AiSystemVisualizer'));
 const AlgorithmVisualizer = React.lazy(() => import('./interactive/AlgorithmVisualizer'));
 const AmbientArchitect = React.lazy(() => import('./interactive/AmbientArchitect'));
 const ApiKeyChatSimulator = React.lazy(() => import('./interactive/ApiKeyChatSimulator'));
 const ArchitectureBuilderSandbox = React.lazy(() => import('./interactive/ArchitectureBuilderSandbox'));
 const AudioVisualSyncLab = React.lazy(() => import('./interactive/AudioVisualSyncLab'));
+const BeginnerImageGen = React.lazy(() => import('./interactive/BeginnerImageGen'));
 const BenefitSorter = React.lazy(() => import('./interactive/BenefitSorter'));
 const BlockchainExplorer = React.lazy(() => import('./interactive/BlockchainExplorer'));
 const BusinessModelCanvas = React.lazy(() => import('./interactive/BusinessModelCanvas'));
@@ -38,6 +41,7 @@ const FundingPulseTicker = React.lazy(() => import('./interactive/FundingPulseTi
 const FutureScenarioPoll = React.lazy(() => import('./interactive/FutureScenarioPoll'));
 const GenerativeSculptor3D = React.lazy(() => import('./interactive/GenerativeSculptor3D'));
 const GestureAnimator = React.lazy(() => import('./interactive/GestureAnimator'));
+const HeroIntro = React.lazy(() => import('./interactive/HeroIntro'));
 const ImagePromptEnhancer = React.lazy(() => import('./interactive/ImagePromptEnhancer'));
 const InteractiveChatbot = React.lazy(() => import('./interactive/InteractiveChatbot'));
 const InteractiveDebates = React.lazy(() => import('./interactive/InteractiveDebates'));
@@ -54,6 +58,8 @@ const ModelExplorer = React.lazy(() => import('./interactive/ModelExplorer'));
 const MotionPhysicsPlayground = React.lazy(() => import('./interactive/MotionPhysicsPlayground'));
 const MultiAgentChatSandbox = React.lazy(() => import('./interactive/MultiAgentChatSandbox'));
 const NeuralEvolutionChronicle = React.lazy(() => import('./interactive/NeuralEvolutionChronicle'));
+const NeuralNetworkPlayground = React.lazy(() => import('./interactive/NeuralNetworkPlayground'));
+const ParadigmShiftExplorer = React.lazy(() => import('./interactive/ParadigmShiftExplorer'));
 const ParameterUniverseExplorer = React.lazy(() => import('./interactive/ParameterUniverseExplorer'));
 const PatternGenomeSynthesizer = React.lazy(() => import('./interactive/PatternGenomeSynthesizer'));
 const PedagogyMatcher = React.lazy(() => import('./interactive/PedagogyMatcher'));
@@ -62,8 +68,10 @@ const PhysicsPainter = React.lazy(() => import('./interactive/PhysicsPainter'));
 const PitchBuilder = React.lazy(() => import('./interactive/PitchBuilder'));
 const PoeticFusionGenerator = React.lazy(() => import('./interactive/PoeticFusionGenerator'));
 const PrivacyLensDashboard = React.lazy(() => import('./interactive/PrivacyLensDashboard'));
+const ProbabilitySelector = React.lazy(() => import('./interactive/ProbabilitySelector'));
 const ProfessionalEmailWriter = React.lazy(() => import('./interactive/ProfessionalEmailWriter'));
 const PromptArchitectWorkbench = React.lazy(() => import('./interactive/PromptArchitectWorkbench'));
+const PromptInjectionGame = React.lazy(() => import('./interactive/PromptInjectionGame'));
 const PromptMutationStudio = React.lazy(() => import('./interactive/PromptMutationStudio'));
 const RagBuilder = React.lazy(() => import('./interactive/RagBuilder'));
 const RlhfTrainerGame = React.lazy(() => import('./interactive/RlhfTrainerGame'));
@@ -78,8 +86,10 @@ const SoundfieldComposer = React.lazy(() => import('./interactive/SoundfieldComp
 const SpatialNarrativeEngine = React.lazy(() => import('./interactive/SpatialNarrativeEngine'));
 const SpeechEmotionAnalyzer = React.lazy(() => import('./interactive/SpeechEmotionAnalyzer'));
 const StoryboardForgePlus = React.lazy(() => import('./interactive/StoryboardForgePlus'));
+const TextToAppGenerator = React.lazy(() => import('./interactive/TextToAppGenerator'));
 const TextureAlchemyLab = React.lazy(() => import('./interactive/TextureAlchemyLab'));
 const TokenEconomySimulator = React.lazy(() => import('./interactive/TokenEconomySimulator'));
+const TokenVisualizer = React.lazy(() => import('./interactive/TokenVisualizer'));
 const UiFeedback = React.lazy(() => import('./interactive/UiFeedback'));
 const VoiceDrivenEditingDesk = React.lazy(() => import('./interactive/VoiceDrivenEditingDesk'));
 const VoiceMorphStudio = React.lazy(() => import('./interactive/VoiceMorphStudio'));
@@ -90,11 +100,13 @@ const componentMap: { [key: string]: React.LazyExoticComponent<React.FC<any>> } 
     AiAlignmentTuner,
     AiEthicsTracker,
     AiPaletteSynthesizer,
+    AiSystemVisualizer,
     AlgorithmVisualizer,
     AmbientArchitect,
     ApiKeyChatSimulator,
     ArchitectureBuilderSandbox,
     AudioVisualSyncLab,
+    BeginnerImageGen,
     BenefitSorter,
     BlockchainExplorer,
     BusinessModelCanvas,
@@ -118,6 +130,7 @@ const componentMap: { [key: string]: React.LazyExoticComponent<React.FC<any>> } 
     FutureScenarioPoll,
     GenerativeSculptor3D,
     GestureAnimator,
+    HeroIntro,
     ImagePromptEnhancer,
     InteractiveChatbot,
     InteractiveDebates,
@@ -134,6 +147,8 @@ const componentMap: { [key: string]: React.LazyExoticComponent<React.FC<any>> } 
     MotionPhysicsPlayground,
     MultiAgentChatSandbox,
     NeuralEvolutionChronicle,
+    NeuralNetworkPlayground,
+    ParadigmShiftExplorer,
     ParameterUniverseExplorer,
     PatternGenomeSynthesizer,
     PedagogyMatcher,
@@ -142,8 +157,10 @@ const componentMap: { [key: string]: React.LazyExoticComponent<React.FC<any>> } 
     PitchBuilder,
     PoeticFusionGenerator,
     PrivacyLensDashboard,
+    ProbabilitySelector,
     ProfessionalEmailWriter,
     PromptArchitectWorkbench,
+    PromptInjectionGame,
     PromptMutationStudio,
     RagBuilder,
     RlhfTrainerGame,
@@ -158,8 +175,10 @@ const componentMap: { [key: string]: React.LazyExoticComponent<React.FC<any>> } 
     SpatialNarrativeEngine,
     SpeechEmotionAnalyzer,
     StoryboardForgePlus,
+    TextToAppGenerator,
     TextureAlchemyLab,
     TokenEconomySimulator,
+    TokenVisualizer,
     UiFeedback,
     VoiceDrivenEditingDesk,
     VoiceMorphStudio,

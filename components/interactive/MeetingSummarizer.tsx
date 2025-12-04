@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { ListIcon } from '../icons/ListIcon';
 import { getAiClient } from '../../services/aiService';
@@ -5,44 +6,47 @@ import type { InteractiveComponentProps } from '../../types';
 import { useAuth } from '../../hooks/useAuth';
 import { Type } from '@google/genai';
 
-const placeholderTranscript = `Alex: Okay team, let's kick off. The main topic today is the Q3 product launch. Jane, can you give us an update?
-Jane: Sure. We're on track. The final UI designs were approved yesterday. We need to make a decision on the primary marketing channel, though. I'm leaning towards social media ads.
-Mark: I agree with social media, but we also need to consider influencer outreach. It has a better ROI in our tests.
-Alex: Good point, Mark. Let's go with a hybrid approach: 70% social media ads, 30% influencer outreach. Jane, can you action that?
-Jane: Will do. I'll have a plan by EOD Friday.
-Alex: Perfect. Anything else? No? Okay, great meeting.`;
+const placeholderTranscript = `Notes from Monday Morning Sync:
+- Sarah said the website is crashing on mobile. Needs fix by tomorrow.
+- Tom wants to change the logo color to neon pink?? (Discuss later).
+- Q3 budget is approved! 50k more than last year.
+- We need to hire 2 new devs ASAP.
+- Lunch order: Pizza.
+- Reminder: Client presentation is moved to Friday 2pm.`;
 
 interface Summary {
-    summary: string;
-    actionItems: string[];
-    keyDecisions: string[];
+    subject: string;
+    body: string;
 }
 
 const MeetingSummarizer: React.FC<InteractiveComponentProps> = ({ interactiveId }) => {
     const { user, addPoints, updateProgress } = useAuth();
-    const [transcript, setTranscript] = useState('');
+    const [transcript, setTranscript] = useState(placeholderTranscript);
     const [result, setResult] = useState<Summary | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [sent, setSent] = useState(false);
     
     const hasCompleted = user?.progress.completedInteractives.includes(interactiveId);
 
-    const handleUseExample = () => {
-        setTranscript(placeholderTranscript);
-    };
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
         if (!transcript.trim()) {
-            setError("Please provide a transcript to summarize.");
+            setError("Please provide notes to summarize.");
             return;
         }
         
         setLoading(true);
         setError(null);
         setResult(null);
+        setSent(false);
 
-        const prompt = `Analyze the following meeting transcript and extract a summary, key decisions, and action items. Transcript:\n\n${transcript}`;
+        const prompt = `You are an elite Chief of Staff. Turn these messy meeting notes into a crisp, professional email to the team. 
+        Format:
+        1. Subject Line: Clear and Urgent.
+        2. Body: Organized by "Key Wins", "Action Items" (with owners if implied), and "Updates". Remove irrelevant fluff (like lunch orders). Tone: Professional, energetic, leadership-driven.
+        
+        Notes:
+        ${transcript}`;
         
         try {
             const ai = await getAiClient();
@@ -54,22 +58,10 @@ const MeetingSummarizer: React.FC<InteractiveComponentProps> = ({ interactiveId 
                 responseSchema: {
                     type: Type.OBJECT,
                     properties: {
-                        summary: {
-                            type: Type.STRING,
-                            description: 'A brief, one to two sentence overview of the meeting.',
-                        },
-                        actionItems: {
-                            type: Type.ARRAY,
-                            items: { type: Type.STRING },
-                            description: 'A list of specific tasks assigned to individuals or the team.',
-                        },
-                        keyDecisions: {
-                            type: Type.ARRAY,
-                            items: { type: Type.STRING },
-                            description: 'A list of important decisions made during the meeting.',
-                        },
+                        subject: { type: Type.STRING },
+                        body: { type: Type.STRING }
                     },
-                    required: ['summary', 'actionItems', 'keyDecisions'],
+                    required: ['subject', 'body'],
                 },
               }
             });
@@ -89,67 +81,89 @@ const MeetingSummarizer: React.FC<InteractiveComponentProps> = ({ interactiveId 
             setLoading(false);
         }
     };
+
+    const handleSendMock = () => {
+        setSent(true);
+    };
     
     return (
         <div className="my-8 p-6 bg-brand-bg rounded-2xl shadow-neumorphic-out">
-            <form onSubmit={handleSubmit} className="space-y-6">
-                 <div>
-                    <div className="flex justify-between items-center mb-2">
-                        <label htmlFor="transcript" className="block text-sm font-semibold text-brand-text">Meeting Transcript</label>
-                        <button type="button" onClick={handleUseExample} className="text-sm text-brand-primary font-semibold hover:underline">Use Example</button>
+            <h4 className="font-bold text-lg text-brand-text mb-2 text-center">Chaos-to-Order Engine</h4>
+            <p className="text-center text-brand-text-light mb-6 text-sm">Paste messy notes. Get a perfect email. See the power of AI structuring.</p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Input Side: The Sticky Note */}
+                <div className="flex flex-col h-full">
+                    <div className="bg-yellow-100 border border-yellow-200 p-4 rounded-lg shadow-sm flex-grow relative rotate-1 transform transition-transform hover:rotate-0">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-4 bg-yellow-200/50 backdrop-blur-sm rounded-sm"></div>
+                        <label className="block font-handwriting text-yellow-800 mb-2 font-bold text-lg">Messy Brain Dump:</label>
+                        <textarea
+                            value={transcript}
+                            onChange={(e) => setTranscript(e.target.value)}
+                            className="w-full h-64 bg-transparent border-none resize-none focus:ring-0 text-brand-text font-mono text-sm leading-relaxed"
+                            placeholder="Type messy notes here..."
+                        />
                     </div>
-                    <textarea
-                        id="transcript"
-                        rows={8}
-                        value={transcript}
-                        onChange={(e) => setTranscript(e.target.value)}
-                        placeholder="Paste your meeting notes or transcript here..."
-                        className="w-full p-3 bg-brand-bg rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary text-brand-text shadow-neumorphic-in"
-                    />
-                </div>
-                 <div className="text-center">
-                    <button type="submit" disabled={loading} className="inline-flex items-center gap-2 bg-brand-primary text-white font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-neumorphic-out hover:shadow-neumorphic-in transform hover:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
-                        <ListIcon />
-                        {loading ? 'Summarizing...' : 'Generate Summary'}
+                    <button 
+                        onClick={handleSubmit} 
+                        disabled={loading} 
+                        className="mt-4 w-full bg-brand-primary text-white font-bold py-3 px-6 rounded-xl shadow-neumorphic-out hover:shadow-neumorphic-in disabled:opacity-50 flex items-center justify-center gap-2 transition-all active:scale-95"
+                    >
+                        {loading ? 'Organizing...' : '⚡ AI: Fix This'}
                     </button>
                 </div>
-            </form>
 
-            {error && <p className="mt-4 text-center text-red-500 font-semibold">{error}</p>}
-
-            {(result || loading) && (
-                <div className="mt-6 p-4 bg-brand-bg rounded-lg shadow-neumorphic-in animate-fade-in">
+                {/* Output Side: The Email Client */}
+                <div className="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden flex flex-col h-[400px]">
+                    <div className="bg-slate-100 p-3 border-b border-slate-200 flex gap-2 items-center">
+                        <div className="flex gap-1.5">
+                            <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                            <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                            <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                        </div>
+                        <div className="flex-grow text-center text-xs font-semibold text-slate-500">New Message</div>
+                    </div>
+                    
                     {loading ? (
-                         <div className="space-y-4 animate-pulse">
-                            <div className="h-5 bg-brand-shadow-dark/50 rounded w-1/4"></div>
-                            <div className="h-4 bg-brand-shadow-dark/50 rounded w-3/4"></div>
-                            <div className="h-5 bg-brand-shadow-dark/50 rounded w-1/3 mt-4"></div>
-                            <div className="h-4 bg-brand-shadow-dark/50 rounded w-full"></div>
-                         </div>
-                    ) : (
-                        result && (
-                            <div className="space-y-4">
-                                <div>
-                                    <h4 className="font-bold text-lg text-brand-text mb-1">Summary {!hasCompleted && <span className="text-sm font-normal text-pale-green">(+25 points!)</span>}</h4>
-                                    <p className="text-brand-text-light">{result.summary}</p>
+                        <div className="flex-grow flex flex-col items-center justify-center space-y-3 p-8">
+                            <div className="w-8 h-8 border-4 border-brand-primary border-t-transparent rounded-full animate-spin"></div>
+                            <p className="text-sm text-brand-text-light animate-pulse">Drafting professional correspondence...</p>
+                        </div>
+                    ) : result ? (
+                        <div className="flex-col flex flex-grow">
+                            <div className="p-4 border-b border-slate-100">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <span className="text-xs font-bold text-slate-400 uppercase w-12">To:</span>
+                                    <span className="text-sm bg-slate-100 px-2 py-0.5 rounded text-slate-600">The Team</span>
                                 </div>
-                                <div>
-                                    <h4 className="font-bold text-lg text-brand-text mb-1">Key Decisions</h4>
-                                    <ul className="list-disc list-inside text-brand-text-light space-y-1">
-                                        {result.keyDecisions.map((item, i) => <li key={`d-${i}`}>{item}</li>)}
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-lg text-brand-text mb-1">Action Items</h4>
-                                    <ul className="list-disc list-inside text-brand-text-light space-y-1">
-                                        {result.actionItems.map((item, i) => <li key={`a-${i}`}>{item}</li>)}
-                                    </ul>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-xs font-bold text-slate-400 uppercase w-12">Subj:</span>
+                                    <span className="text-sm font-semibold text-brand-text">{result.subject}</span>
                                 </div>
                             </div>
-                        )
+                            <div className="p-4 flex-grow overflow-y-auto bg-white">
+                                <p className="text-sm text-brand-text whitespace-pre-wrap leading-relaxed">{result.body}</p>
+                            </div>
+                            <div className="p-3 bg-slate-50 border-t border-slate-100 flex justify-end">
+                                {!sent ? (
+                                    <button onClick={handleSendMock} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm font-bold transition-colors flex items-center gap-2">
+                                        Send Email <span className="text-blue-200">⌘Enter</span>
+                                    </button>
+                                ) : (
+                                    <span className="text-green-600 font-bold text-sm flex items-center gap-2 px-4 py-2">
+                                        ✓ Sent!
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="flex-grow flex items-center justify-center text-slate-300 text-sm">
+                            Waiting for input...
+                        </div>
                     )}
                 </div>
-            )}
+            </div>
+            {error && <p className="mt-4 text-center text-red-500 font-semibold">{error}</p>}
         </div>
     );
 };
